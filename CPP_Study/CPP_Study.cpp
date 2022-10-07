@@ -33,5 +33,23 @@ W(Woman)로 출력한다.
 
 int main()
 {
+	string input;
+	cin >> input;
+	int age = 120 - ((input[0] - '0') * 10 + (input[1] - '0'));
+
+	if (input[7] == '1' || input[7] == '3')
+	{
+		if (input[7] == '3') age -= 100;
+
+		cout << age << " M";
+	}
+	else
+	{
+		if (input[7] == '4') age -= 100;
+		cout << age << " W";
+	}
+
+	// 나이 100 - x + 20;
+	// 120 - x;
 
 }
