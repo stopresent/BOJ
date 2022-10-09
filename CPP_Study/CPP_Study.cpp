@@ -56,6 +56,9 @@ bool CanGo(int y, int x)
 
 void SetBoard()
 {
+	int dy[] = { 0, 1, 0, -1 };
+	int dx[] = { 1, 0, -1, 0 };
+
 	int dir = RIGHT;
 	int num = 1;
 	int y = 0, x = 0;
@@ -69,25 +72,8 @@ void SetBoard()
 		int nextY;
 		int nextX;
 
-		switch (dir)
-		{
-		case RIGHT:
-			nextY = y;
-			nextX = x + 1;
-			break;
-		case DOWN:
-			nextY = y + 1;
-			nextX = x;
-			break;
-		case LEFT:
-			nextY = y;
-			nextX = x - 1;
-			break;
-		case UP:
-			nextY = y - 1;
-			nextX = x;
-			break;
-		}
+		nextY = y + dy[dir];
+		nextX = x + dx[dir];
 
 		if (CanGo(nextY, nextX))
 		{
@@ -97,21 +83,7 @@ void SetBoard()
 		}
 		else
 		{
-			switch (dir)
-			{
-			case RIGHT:
-				dir = DOWN;
-				break;
-			case DOWN:
-				dir = LEFT;
-				break;
-			case LEFT:
-				dir = UP;
-				break;
-			case UP:
-				dir = RIGHT;
-				break;
-			}
+			dir = (dir + 1) % 4;
 		}
 
 	}
