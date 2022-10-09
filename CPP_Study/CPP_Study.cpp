@@ -3,6 +3,7 @@ using namespace std;
 #include <string>
 
 /*
+
 7. 영어 단어 복구
 
 현수의 컴퓨터가 바이러스에 걸려 영어단어가 뛰어쓰기와 대소문자가 혼합되어 표현된다.
@@ -28,5 +29,18 @@ beautiful
 
 int main()
 {
+	string input;
+	getline(cin, input);
 
+	string ret;
+
+	for (int i = 0; i < input.length(); ++i)
+	{
+		if (input[i] != ' ')
+		{
+			ret += tolower(input[i]);
+		}
+	}
+
+	cout << ret;
 }
