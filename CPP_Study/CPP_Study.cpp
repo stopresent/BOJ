@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #include <string>
+#include "math.h"
 
 /*
 
@@ -26,8 +27,41 @@ N개의 자연수가 입력되면 각 자연수의 자릿수의 합을 구하고, 그 합이 최대인 자연수�
 
 */
 
+int digit_sum(int x)
+{
+	int sum = 0;
+
+	while (true)
+	{
+		if (x == 0) break;
+
+		sum += x % 10;
+		x /= 10;
+	}
+
+	return sum;
+}
+
 int main()
 {
+	int n, num, max = 0, maxNum = 0;
 
+	cin >> n;
+
+	for (int i = 0; i < n; i++)
+	{
+		cin >> num;
+		if (max == digit_sum(num))
+		{
+			if (num > maxNum) maxNum = num;
+		}
+		if (max < digit_sum(num))
+		{
+			max = digit_sum(num);
+			maxNum = num;
+		}
+	}
+
+	cout << maxNum;
 	return 0;
 }
