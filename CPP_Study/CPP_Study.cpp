@@ -25,8 +25,23 @@ using namespace std;
 
 */
 
+int arr[50001] = { 0, };
 
 int main()
 {
+	int N;
+	cin >> N;
+
+	for (int i = 1; i <= N; i++)
+	{
+		for (int j = i; j <= N; j += i)
+		{
+			arr[j]++;
+		}
+	}
+
+	for (int i = 1; i <= N; i++)
+		cout << arr[i] << ' ';
+
 	return 0;
 }
