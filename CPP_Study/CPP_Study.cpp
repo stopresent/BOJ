@@ -1,101 +1,34 @@
 #include <iostream>
 using namespace std;
-#include <iomanip>
 
 /*
 
-7. 달팽이 문제
+8. 올바른 괄호
+괄호가 입력되면 올바른 괄호이면 “YES", 올바르지 않으면 ”NO"를 출력합니다.
+(())() 이것은 괄호의 쌍이 올바르게 위치하는 거지만, (()()))은 올바른 괄호가 아니다.
 
-사용자의 입력 : 1 ~ 100 사이의 정수
+▣ 입력설명
+첫 번째 줄에 괄호 문자열이 입력됩니다. 문자열의 최대 길이는 30이다.
 
-입력 예시
-5
+▣ 출력설명
+첫 번째 줄에 YES, NO를 출력한다.
 
-출력 예시
-01 02 03 04 05
-16 17 18 19 06
-15 24 25 20 07
-14 23 22 21 08
-13 12 11 10 09
+▣ 입력예제 1
+(()(()))(()
+
+▣ 출력예제 1
+NO
+
+▣ 입력예제 2
+()()(()())
+
+▣ 출력예제 2
+YES
 
 */
 
-const int MAX = 100;
-int board[MAX][MAX] = {};
-int N;
-
-
-void PrintBoard()
-{
-	for (int y = 0; y < N; ++y)
-	{
-		for (int x = 0; x < N; ++x)
-			cout << setfill('0') << setw(2) << board[y][x] << " ";
-		cout << endl;
-	}
-}
-
-enum DIR
-{
-	RIGHT = 0,
-	DOWN = 1,
-	LEFT = 2,
-	UP = 3,
-};
-
-bool CanGo(int y, int x)
-{
-	if (y >= N || y < 0)
-		return false;
-	if (x >= N || x < 0)
-		return false;
-	if (board[y][x] != 0)
-		return false;
-	return true;
-}
-
-void SetBoard()
-{
-	int dy[] = { 0, 1, 0, -1 };
-	int dx[] = { 1, 0, -1, 0 };
-
-	int dir = RIGHT;
-	int num = 1;
-	int y = 0, x = 0;
-
-	while (true)
-	{
-		board[y][x] = num;
-
-		if (num == N * N) break;
-
-		int nextY;
-		int nextX;
-
-		nextY = y + dy[dir];
-		nextX = x + dx[dir];
-
-		if (CanGo(nextY, nextX))
-		{
-			y = nextY;
-			x = nextX;
-			num++;
-		}
-		else
-		{
-			dir = (dir + 1) % 4;
-		}
-
-	}
-}
-
 int main()
 {
-	cin >> N;
-
-	SetBoard();
-
-	PrintBoard();
 
 	return 0;
 }
