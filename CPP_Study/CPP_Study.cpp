@@ -1,46 +1,52 @@
 #include <iostream>
 using namespace std;
-#include <string>
+#include <iomanip>
 
 /*
 
-7. 영어 단어 복구
+7. 달팽이 문제
 
-현수의 컴퓨터가 바이러스에 걸려 영어단어가 뛰어쓰기와 대소문자가 혼합되어 표현된다.
-예를 들면 아름다운 이란 뜻을 가지고 있는 beautiful 단어가 “bE au T I fu L” 과 같이 컴퓨터에 표시되고 있습니다.
-위와 같이 에러로 표시되는 영어단어를 원래의 표현대로 공백을제거하고 소문자화 시켜 출력하는 프로그램을 작성하세요.
+사용자의 입력 : 1 ~ 100 사이의 정수
 
-▣ 입력설명
-첫 줄에 바이러스에 걸린 영어단어가 주어진다. 바이러스에 걸린 영어단어의 길이(공백포함)는100을 넘지 않는다.
-문자사이의 공백은 연속적으로 존재할 수 있습니다. 입력은 알파벳과 공백만 주어집니다.
+입력 예시
+5
 
-▣ 출력설명
-첫 줄에 소문자로 된 정상적인 영어단어를 출력한다.
-
-▣ 입력예제 1
-bE au T I fu L
-
-▣ 출력예제 1
-beautiful
+출력 예시
+01 02 03 04 05
+16 17 18 19 06
+15 24 25 20 07
+14 23 22 21 08
+13 12 11 10 09
 
 */
 
+const int MAX = 100;
+int board[MAX][MAX] = {};
+int N;
 
+
+void PrintBoard()
+{
+	for (int y = 0; y < N; ++y)
+	{
+		for (int x = 0; x < N; ++x)
+			cout << setfill('0') << setw(2) << board[y][x] << " ";
+		cout << endl;
+	}
+}
+
+void SetBoard()
+{
+
+}
 
 int main()
 {
-	string input;
-	getline(cin, input);
+	cin >> N;
 
-	string ret;
+	PrintBoard();
 
-	for (int i = 0; i < input.length(); ++i)
-	{
-		if (input[i] != ' ')
-		{
-			ret += tolower(input[i]);
-		}
-	}
+	SetBoard();
 
-	cout << ret;
+	return 0;
 }
