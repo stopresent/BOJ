@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "ConsoleHelper.h"
 
+// 미로 시리즈 환경 설정 완료!
+
 int main()
 {
 	uint64 lastTick = 0;
