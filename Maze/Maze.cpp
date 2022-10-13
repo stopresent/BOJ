@@ -1,13 +1,22 @@
 #include "pch.h"
 #include "ConsoleHelper.h"
+#include "Board.h"
 
 // 미로 시리즈 환경 설정 완료!
 
+Board board;
+
+enum
+{
+	BOARD_SIZE = 25,
+};
+
 int main()
 {
+	board.Init(BOARD_SIZE);
+
 	uint64 lastTick = 0;
 
-	const char* TILE = "■";
 
 	while (true)
 	{
@@ -23,17 +32,6 @@ int main()
 		// 로직
 
 		// 랜더링
-		ConsoleHelper::SetCursorPosition(0, 0);
-		ConsoleHelper::ShowConsoleCursor(false);
-		ConsoleHelper::SetCursorColor(ConsoleColor::RED);
-
-		for (int y = 0; y < 25; ++y)
-		{
-			for (int x = 0; x < 25; ++x)
-			{
-				cout << TILE;
-			}
-			cout << endl;
-		}
+		board.Render();
 	}
 }

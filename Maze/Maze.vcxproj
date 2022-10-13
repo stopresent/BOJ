@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="ConsoleHelper.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="pch.cpp">
@@ -145,6 +146,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Board.h" />
     <ClInclude Include="ConsoleHelper.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Types.h" />
