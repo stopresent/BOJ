@@ -20,7 +20,7 @@ public:
 private:
 	Pos				_pos = {};
 	int32			_dir = DIR_UP;
-	Board*			_board;
+	Board* _board;
 
 	vector<Pos>		_path;
 	uint32			_pathIndex;
