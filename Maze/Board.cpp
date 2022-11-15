@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "Board.h"
+<<<<<<< HEAD
+#include "ConsoleHelper.h"
+=======
 #include "Player.h"
+>>>>>>> cef97a745b85b88d9f4a1f9f89697b7ad563615a
 
 const char* TILE = "■";
 
@@ -12,10 +16,16 @@ Board::~Board()
 {
 }
 
+<<<<<<< HEAD
+void Board::Init(int size)
+{
+	_size = size;
+=======
 void Board::Init(int32 size, Player* player)
 {
 	_size = size;
 	_player = player;
+>>>>>>> cef97a745b85b88d9f4a1f9f89697b7ad563615a
 
 	GenerateMap();
 }
@@ -30,14 +40,19 @@ void Board::Render()
 	{
 		for (int x = 0; x < 25; ++x)
 		{
+<<<<<<< HEAD
+=======
 			ConsoleColor color = GetTileColor(Pos{ y, x });
 			ConsoleHelper::SetCursorColor(color);
 
+>>>>>>> cef97a745b85b88d9f4a1f9f89697b7ad563615a
 			cout << TILE;
 		}
 		cout << endl;
 	}
 }
+<<<<<<< HEAD
+=======
 
 // Binary Tree 미로 생성 알고리즘
 // - Mazes For Programmers
@@ -121,3 +136,4 @@ ConsoleColor Board::GetTileColor(Pos pos)
 
 	return ConsoleColor::WHITE;
 }
+>>>>>>> cef97a745b85b88d9f4a1f9f89697b7ad563615a
