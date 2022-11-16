@@ -17,8 +17,11 @@ public:
 	void SetPos(Pos pos) { _pos = pos; }
 	Pos GetPos() { return _pos; }
 
+	void RightHand();
+	void BFS();
+
 private:
-	Pos				_pos = {};
+	Pos				_pos = { };
 	int32			_dir = DIR_UP;
 	Board* _board;
 

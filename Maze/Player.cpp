@@ -8,12 +8,40 @@ void Player::Init(Board* board)
 	_pos = board->GetEnterPos();
 	_board = board;
 
+
+	//RightHand();
+	BFS();
+}
+
+void Player::Update(uint64 deltaTick)
+{
+	if (_pathIndex >= _path.size())
+		return;
+
+	_sumTick += deltaTick;
+	if (_sumTick >= MOVE_TICK)
+	{
+		_sumTick = 0;
+
+		_pos = _path[_pathIndex];
+		_pathIndex++;
+	}
+}
+
+bool Player::CanGo(Pos pos)
+{
+	TileType tile = _board->GetTileType(pos);
+	return tile == TileType::EMPTY;
+}
+
+void Player::RightHand()
+{
 	Pos pos = _pos;
 
 	_path.clear();
 	_path.push_back(pos);
 
-	Pos dest = board->GetExitPos();
+	Pos dest = _board->GetExitPos();
 
 	Pos front[4] =
 	{
@@ -76,23 +104,68 @@ void Player::Init(Board* board)
 	_path = path;
 }
 
-void Player::Update(uint64 deltaTick)
+void Player::BFS()
 {
-	if (_pathIndex >= _path.size())
-		return;
+	Pos pos = _pos;
 
-	_sumTick += deltaTick;
-	if (_sumTick >= MOVE_TICK)
+	Pos dest = _board->GetExitPos();
+
+	Pos front[4] =
 	{
-		_sumTick = 0;
+		Pos { -1, 0 },
+		Pos { 0, -1 },
+		Pos { 1, 0 },
+		Pos { 0, 1 },
+	};
 
-		_pos = _path[_pathIndex];
-		_pathIndex++;
+	int32 size = _board->GetSize();
+	vector<vector<bool>> discorverd(size, vector<bool>(size, false));
+
+	map<Pos, Pos> parent;
+
+	queue<Pos> q;
+	q.push(pos);
+	discorverd[pos.y][pos.x] = true;
+
+	parent[pos] = pos;
+
+	while (q.empty() == false)
+	{
+		pos = q.front();
+		q.pop();
+
+		// ¹æ¹®
+		if (pos == dest)
+			break;
+
+		for (int32 dir = 0; dir < 4; dir++)
+		{
+			Pos nextPos = pos + front[dir];
+			if (CanGo(nextPos) == false)
+				continue;
+
+			if (discorverd[nextPos.y][nextPos.x])
+				continue;
+
+			q.push(nextPos);
+			discorverd[nextPos.y][nextPos.x] = true;
+			parent[nextPos] = pos;
+		}
 	}
-}
 
-bool Player::CanGo(Pos pos)
-{
-	TileType tile = _board->GetTileType(pos);
-	return tile == TileType::EMPTY;
+	_path.clear();
+
+	pos = dest;
+
+	while (true)
+	{
+		_path.push_back(pos);
+
+		if (pos == parent[pos])
+			break;
+
+		pos = parent[pos];
+	}
+
+	::reverse(_path.begin(), _path.end());
 }

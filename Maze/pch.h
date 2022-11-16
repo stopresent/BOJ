@@ -5,6 +5,8 @@
 #include <map>
 #include <iostream>
 #include <Windows.h>
+#include <queue>
+#include <map>
 using namespace std;
 
 struct Pos
@@ -32,6 +34,13 @@ struct Pos
 		y += other.y;
 		x += other.x;
 		return *this;
+	}
+
+	bool operator<(const Pos& other) const
+	{
+		if (y != other.y)
+			return y < other.y;
+		return x < other.x;
 	}
 
 	int32 y = 0;
