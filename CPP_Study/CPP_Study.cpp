@@ -18,64 +18,37 @@ void HJBinarySearch(int N)
 
 	while (true)
 	{
+		cout << "midle index : " << idx << endl;
+
+		if (idx < 0 || idx > (numbers.size() - 1))
+		{
+			cout << "N isn't vailed" << endl;
+			break;
+		}
+
 		if (N == numbers[idx])
 		{
 			cout << "N is vailed" << endl;
 			break;
 		}
 
-		if (idx <= 1 || idx >= (numbers.size() - 2))
-		{
-			cout << "N isn't vailed" << endl;
-			break;
-		}
-
-
 		if (N <= numbers[idx])
 		{
+			cout << "Å½»ö ¹üÀ§ : " << 0 << "~" << idx << endl;
 			idx /= 2;
-
 		}
 		else
 		{
-			idx = idx + idx / 2 - 1;
+			cout << "Å½»ö ¹üÀ§ : " << idx << "~" << numbers.size() - 1 << endl;
+			idx = idx + ((numbers.size() - idx) / 2);
 		}
 	}
 }
 
-void binarySearch(int N)
-{
-	int left = 0;
-	int right = (int)numbers.size() - 1;
 
-	while (left <= right)
-	{
-		int mid = (left + right) / 2;
-
-		cout << "Å½»ö¹üÀ§ : " << left << "~" << right << endl;
-
-		if (N < numbers[mid])
-		{
-			cout << N << "<" << numbers[mid] << endl;
-			right = mid - 1;
-		}
-		else if (N > numbers[mid])
-		{
-			cout << N << ">" << numbers[mid] << endl;
-			left = mid + 1;
-		}
-		else
-		{
-			cout << "!!" << endl;
-			return;
-		}
-	}
-
-	cout << "¤Ð¤Ð" << endl;
-}
 
 int main()
 {
 	numbers = vector<int>{ 1, 8, 15, 23, 32, 44, 56, 63, 81, 91 };
-	binarySearch(15);
+	HJBinarySearch(56);
 }
