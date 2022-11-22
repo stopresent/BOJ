@@ -3,52 +3,27 @@
 #include <list>
 #include <queue>
 #include <stack>
+#include "BinarySearchTree.h"
 using namespace std;
 
 // ÀÌÁø Å½»ö Æ®¸®
 
-// ÀÌÁø Å½»ö (binary searxh
-
-vector<int> numbers;
-
-void HJBinarySearch(int N)
-{
-	int size = numbers.size();
-	int idx = size / 2;
-
-	while (true)
-	{
-		cout << "midle index : " << idx << endl;
-
-		if (idx < 0 || idx > (numbers.size() - 1))
-		{
-			cout << "N isn't vailed" << endl;
-			break;
-		}
-
-		if (N == numbers[idx])
-		{
-			cout << "N is vailed" << endl;
-			break;
-		}
-
-		if (N <= numbers[idx])
-		{
-			cout << "Å½»ö ¹üÀ§ : " << 0 << "~" << idx << endl;
-			idx /= 2;
-		}
-		else
-		{
-			cout << "Å½»ö ¹üÀ§ : " << idx << "~" << numbers.size() - 1 << endl;
-			idx = idx + ((numbers.size() - idx) / 2);
-		}
-	}
-}
-
-
+// ÀÌÁø Å½»ö (binary search)
 
 int main()
 {
-	numbers = vector<int>{ 1, 8, 15, 23, 32, 44, 56, 63, 81, 91 };
-	HJBinarySearch(56);
+	BinarySearchTree bst;
+	bst.Insert(20);
+	bst.Insert(10);
+	bst.Insert(30);
+	bst.Insert(25);
+	bst.Insert(26);
+	bst.Insert(40);
+	bst.Insert(50);
+
+	bst.Delete(20);
+	bst.Delete(26);
+
+	bst.Print();
+
 }
