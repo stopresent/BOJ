@@ -5,34 +5,105 @@
 #include <queue>
 using namespace std;
 
-void InsertionSort(vector<int>& v)
+// Q) map vs hash_map (C++11 표준 unordered_map)
+
+// map : Red-Black Tree
+// - 추가/탐색/삭제 O(logN)
+
+// C# dictionary = C++ map (X)
+// C# dictionary = C++ unordered_map
+
+// hash_map (unordered_map)
+// - 추가/탐색/삭제 O(1)
+
+// 메모리를 내주고 속도를 취한다.
+
+void TestTable()
 {
-	const int n = v.size();
-
-	// [1][3] [2][4][5]
-
-	for (int i = 1; i < n; i++)
+	struct User
 	{
-		int data = v[i];
+		int userId = 0;
+		string userName;
+	};
 
-		int j;
-		for (j = i - 1; j >= 0; j--)
+	vector<User> users;
+	users.resize(1000);
+
+	users[777] = User{ 777,"stopresent" };
+
+	string name = users[777].userName;
+	cout << name << endl;
+	
+}
+
+void TestHash()
+{
+	struct User
+	{
+		int userId = 0;
+		string userName;
+	};
+
+	vector<User> users;
+	users.resize(1000);
+
+	const int userId = 123456789;
+	int key = (userId % 1000);
+
+	// 123456789번 유저 정보 세팅
+	users[key] = User{ userId, "stopresent" };
+
+	// 12345678번 유저 이름은?
+	User& user = users[key];
+	if (user.userId == userId)
+	{
+		string name = user.userName;
+		cout << name << endl;
+	}
+
+	// 충돌 문제
+	// 충돌이 발생한 자리를 대신해서 다른 빈자리를 찾아나서면 된다
+	// - 선형 조사법 (linear probing)
+	// hash(key)+1 -> hash(key)+2
+	// - 이차 조사법 (qudratic probing)
+	// hash(key)+1^2 -> hash(key)+2^2
+	// - etc
+
+}
+
+void TestHashTableChaining()
+{
+	struct User
+	{
+		int userId = 0;
+		string username;
+	};
+
+	vector<vector<User>> users;
+	users.resize(1000);
+
+	const int userId = 123456789;
+	int key = (userId % 1000);
+
+	// 123456789번 유저 정보 세팅
+	users[key].push_back(User{ userId, "stopresent" });
+
+	// 123456789번 유저 이름은?
+	vector<User>& bucket = users[key];
+	for (User& user : bucket)
+	{
+		if (user.userId == userId)
 		{
-			if (v[j] > data)
-				v[j + 1] = v[j];
-			else
-				break;
+			string name = user.username;
+			cout << name << endl;
 		}
-
-		v[j + 1] = data;
 	}
 
 }
 
 int main()
 {
-	
-	vector<int> v = {3, 9, 5, 4, 2};
-	InsertionSort(v);
+
+	TestHash();
 
 }
