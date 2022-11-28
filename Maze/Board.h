@@ -16,18 +16,6 @@ enum class TileType
 	WALL,
 };
 
-struct CostEdge
-{
-	int cost;
-	Pos u;
-	Pos v;
-
-	bool operator<(CostEdge& other)
-	{
-		return cost < other.cost;
-	}
-};
-
 class Board
 {
 public:
@@ -39,6 +27,8 @@ public:
 
 	void			GenerateMapByBinaryTree();
 	void			GenerateMapByKruskal();
+	void			GenerateMapByPrim();
+
 	TileType		GetTileType(Pos pos);
 	ConsoleColor	GetTileColor(Pos pos);
 
