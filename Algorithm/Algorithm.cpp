@@ -5,92 +5,34 @@
 #include <queue>
 using namespace std;
 
-template <typename T, typename Container = vector<T>, typename Predicate = less<T>>
-class PriorityQueue
+void InsertionSort(vector<int>& v)
 {
-public:
+	const int n = v.size();
 
-	void push(const T& data)
+	// [1][3] [2][4][5]
+
+	for (int i = 1; i < n; i++)
 	{
-		_heap.push_back(data);
-		
-		int now = static_cast<int>(_heap.size()) - 1;
+		int data = v[i];
 
-		while (now > 0)
+		int j;
+		for (j = i - 1; j >= 0; j--)
 		{
-			int next = static_cast<int>((now - 1) / 2);
-			//if (_heap[now] < _heap[next])
-			//	break;			
-			if(_predicate(_heap[now], _heap[next]))
+			if (v[j] > data)
+				v[j + 1] = v[j];
+			else
 				break;
-
-			::swap(_heap[now], _heap[next]);
-			now = next;
 		}
 
+		v[j + 1] = data;
 	}
 
-	void pop()
-	{
-		_heap[0] = _heap.back();
-		_heap.pop_back();
-
-		int now = 0;
-		while (true)
-		{
-			int left = 2 * now + 1;
-			int right = 2 * now + 2;
-
-			if (left >= _heap.size())
-				break;
-
-			int next = now;
-
-			if (_predicate(_heap[next], _heap[left]))
-				next = left;
-
-			if (right < _heap.size() && _predicate(_heap[next], _heap[right]))
-				next = right;
-
-			if (next == now)
-				break;
-
-			::swap(_heap[now], _heap[next]);
-			now = next;
-		}
-	}
-
-	T& top()
-	{
-		return _heap[0];
-	}
-
-	bool empty()
-	{
-		return _heap.empty();
-	}
-
-private:
-	Container _heap = {};
-	Predicate _predicate = {};
-};
+}
 
 int main()
 {
-	PriorityQueue<int, vector<int>, greater<int>> pq;
-
-	pq.push(100);
-	pq.push(200);
-	pq.push(300);
-	pq.push(500);
-	pq.push(400);
-
-	while (pq.empty() == false)
-	{
-		int value = pq.top();
-		pq.pop();
-
-		cout << value << endl;
-	}
 	
+	vector<int> v = {3, 9, 5, 4, 2};
+	InsertionSort(v);
+
 }
