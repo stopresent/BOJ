@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="ConsoleHelper.cpp" />
+    <ClCompile Include="DisjointSet.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="ConsoleHelper.h" />
+    <ClInclude Include="DisjointSet.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Types.h" />

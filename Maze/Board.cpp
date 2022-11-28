@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Board.h"
 #include "Player.h"
+#include "DisjointSet.h"
 
 const char* TILE = "■";
 
@@ -17,7 +18,7 @@ void Board::Init(int32 size, Player* player)
 	_size = size;
 	_player = player;
 
-	GenerateMap();
+	GenerateMapByKruskal();
 }
 
 void Board::Render()
@@ -41,7 +42,7 @@ void Board::Render()
 
 // Binary Tree 미로 생성 알고리즘
 // - Mazes For Programmers
-void Board::GenerateMap()
+void Board::GenerateMapByBinaryTree()
 {
 	for (int32 y = 0; y < _size; y++)
 	{
@@ -88,6 +89,68 @@ void Board::GenerateMap()
 			}
 		}
 	}
+}
+
+void Board::GenerateMapByKruskal()
+{
+	for (int32 y = 0; y < _size; y++)
+	{
+		for (int32 x = 0; x < _size; x++)
+		{
+			if (x % 2 == 0 || y % 2 == 0)
+				_tile[y][x] = TileType::WALL;
+			else
+				_tile[y][x] = TileType::EMPTY;
+		}
+	}
+
+	vector<CostEdge> edges;
+
+	// edges 후보를 랜덤 cost로 등록한다
+	for (int32 y = 0; y < _size; y++)
+	{
+		for (int32 x = 0; x < _size; x++)
+		{
+			if (x % 2 == 0 || y % 2 == 0)
+				continue;
+
+			// 우측 연결하는 간선 후보
+			if (x < _size - 2)
+			{
+				const int32 randValue = ::rand() % 100;
+				edges.push_back(CostEdge{ randValue, Pos{y, x}, Pos{y, x + 2} });
+			}
+
+			// 아래 연결하는 간선 후보
+			if (y < _size - 2)
+			{
+				const int32 randValue = ::rand() % 100;
+				edges.push_back(CostEdge{ randValue, Pos{y, x}, Pos{y + 2, x} });
+			}
+		}
+	}
+
+	::sort(edges.begin(), edges.end());
+
+	DisjointSet sets(_size * _size);
+
+	for (CostEdge& edge : edges)
+	{
+		int u = edge.u.y * _size + edge.u.x;
+		int v = edge.v.y * _size + edge.v.x;
+		// 같은 그룹이면 스킵 ( 안 그러면 사이클 발생 )
+		if (sets.Find(u) == sets.Find(v))
+			continue;
+
+		// 두 그룹을 합친다
+		sets.Union(u, v);
+
+		// 맵에 적용
+		int y = (edge.u.y + edge.v.y) / 2;
+		int x = (edge.u.x + edge.v.x) / 2;
+		_tile[y][x] = TileType::EMPTY;
+	}
+
 }
 
 TileType Board::GetTileType(Pos pos)
