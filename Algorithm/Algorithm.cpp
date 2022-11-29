@@ -6,76 +6,69 @@
 using namespace std;
 
 // 동적 계획법 (DP)
-// LIS : Longest Increasing Sequence
+// TRIANGLE_PATH
+// - (0,0)부터 시작해서 아래 or 우측 아래로 이동 가능
+// - 만나는 숫자를 모두 더함
+// - 더한 숫자가 최대가 되는 경로? 합?
 
-// Seq : 1 9 2 5 7
-// 부분 수열 : 일부 (0개 이상) 숫자를 지우고 남은 수열
-// ex ) 1 2 5
-// ex ) 1 9 5 7
-// 순 증가 부분 수열
-// ex ) 1 2 5
+// 6
+// 1 2 
+// 3 7 4
+// 9 4 1 7
+// 2 7 5 9 4
 
-// LIS : 제일 긴 [순 증가 부분 수열]의 길이
-// 1 2 5 7 = 길이 4
+int N;
+vector<vector<int>> board;
+vector<vector<int>> cache;
+vector<vector<int>> nextX;
 
-vector<int> seq;
-int cache[100];
-
-int LIS(int idx)
+int path(int y, int x)
 {
-	// 기저 사례
-	if (idx >= seq.size() - 1)
-		return 1;
+	if (y == N)
+		return 0;
+	
+	if (cache[y][x] != -1)
+		return cache[y][x];
+	
+	{
+		int nextBottom = path(y + 1, x);
+		int nextBottomRight = path(y + 1, x + 1);
+		if (nextBottom > nextBottomRight)
+			nextX[y][x] = x;
+		else
+			nextX[y][x] = x + 1;
+	}
 
-	// 메모이제이션
-	if (cache[idx] != -1)
-		return cache[idx];
-
-	// 문제 해결
-	cache[idx] = 1;
-
-	for (int nextPos = idx + 1; nextPos < seq.size(); nextPos++)
-		if (seq[idx] < seq[nextPos])
-			cache[idx] = max(cache[idx], LIS(nextPos) + 1);
-
-	return cache[idx];
-}
-
-int LIS_Rookiss(int pos)
-{
-	// 기저 사항
-	//if (pos == seq.size() - 1)
-	//	return 1;
-
-	// 캐시 확인
-	int& ret = cache[pos];
-	if (ret != -1)
-		return ret;
-
-	// 구하기
-
-	// 최소 seq[pos]은 있으니 1부터 시작
-	ret = 1;
-
-	// 구하기
-	for (int next = pos + 1; next < seq.size(); next++)
-		if (seq[pos] < seq[next])
-			ret = max(ret, 1 + LIS_Rookiss(next));
-
-	return ret;
+	return cache[y][x] = board[y][x] + max(path(y + 1, x), path(y + 1, x + 1));
 }
 
 int main()
 {
-	::memset(cache, -1, sizeof(cache));
+	board = vector<vector<int>>
+	{
+		{6},
+		{1, 2},
+		{3, 7, 4},
+		{9, 4, 1, 7},
+		{2, 7, 5, 9, 4}
+	};
 
-	seq = vector<int>{ 1, 9, 2, 5, 7 };
+	N = board.size();
+	cache = vector<vector<int>>(N, vector<int>(N, -1));
+	nextX = vector<vector<int>>(N, vector<int>(N));
 
-	int ret = 0;
-
-	for (int i = 0; i < seq.size() - 1; i++)
-		ret = max(ret, LIS(i));
-
+	int ret = path(0, 0);
 	cout << ret << endl;
 
+	// 경로 만들기
+	int y = 0;
+	int x = 0;
+
+	while (y < N)
+	{
+		cout << board[y][x] << " -> ";
+
+		x = nextX[y][x];
+		y++;
+	}
 }
