@@ -3,72 +3,77 @@
 #include <list>
 #include <stack>
 #include <queue>
+
 using namespace std;
 
-// 동적 계획법 (DP)
-// TRIANGLE_PATH
-// - (0,0)부터 시작해서 아래 or 우측 아래로 이동 가능
-// - 만나는 숫자를 모두 더함
-// - 더한 숫자가 최대가 되는 경로? 합?
+/*
 
-// 6
-// 1 2 
-// 3 7 4
-// 9 4 1 7
-// 2 7 5 9 4
+	2738	행렬 덧셈
 
-int N;
-vector<vector<int>> board;
-vector<vector<int>> cache;
-vector<vector<int>> nextX;
+문제
+N*M크기의 두 행렬 A와 B가 주어졌을 때, 두 행렬을 더하는 프로그램을 작성하시오.
 
-int path(int y, int x)
-{
-	if (y == N)
-		return 0;
-	
-	if (cache[y][x] != -1)
-		return cache[y][x];
-	
-	{
-		int nextBottom = path(y + 1, x);
-		int nextBottomRight = path(y + 1, x + 1);
-		if (nextBottom > nextBottomRight)
-			nextX[y][x] = x;
-		else
-			nextX[y][x] = x + 1;
-	}
+입력
+첫째 줄에 행렬의 크기 N 과 M이 주어진다. 둘째 줄부터 N개의 줄에 행렬 A의 원소 M개가 차례대로 주어진다. 이어서 N개의 줄에 행렬 B의 원소 M개가 차례대로 주어진다. N과 M은 100보다 작거나 같고, 행렬의 원소는 절댓값이 100보다 작거나 같은 정수이다.
 
-	return cache[y][x] = board[y][x] + max(path(y + 1, x), path(y + 1, x + 1));
-}
+출력
+첫째 줄부터 N개의 줄에 행렬 A와 B를 더한 행렬을 출력한다. 행렬의 각 원소는 공백으로 구분한다.
+
+예제 입력 1
+3 3
+1 1 1
+2 2 2
+0 1 0
+3 3 3
+4 4 4
+5 5 100
+
+예제 출력 1
+4 4 4
+6 6 6
+5 6 100
+
+*/
+
+int n, m;
+
+int matrix[100][100];
 
 int main()
 {
-	board = vector<vector<int>>
+	cin >> n >> m;
+	const int N = n;
+
+	int arr[100][100];
+	int arr2[100][100];
+
+	for (int y = 0; y < n; y++)
 	{
-		{6},
-		{1, 2},
-		{3, 7, 4},
-		{9, 4, 1, 7},
-		{2, 7, 5, 9, 4}
-	};
+		for (int x = 0; x < m; x++)
+		{
+			int num;
+			cin >> num;
+			arr[y][x] = num;
+		}
+	}
 
-	N = board.size();
-	cache = vector<vector<int>>(N, vector<int>(N, -1));
-	nextX = vector<vector<int>>(N, vector<int>(N));
-
-	int ret = path(0, 0);
-	cout << ret << endl;
-
-	// 경로 만들기
-	int y = 0;
-	int x = 0;
-
-	while (y < N)
+	for (int y = 0; y < n; y++)
 	{
-		cout << board[y][x] << " -> ";
+		for (int x = 0; x < m; x++)
+		{
+			int num;
+			cin >> num;
+			arr2[y][x] = num;
+		}
+	}
 
-		x = nextX[y][x];
-		y++;
+	for (int y = 0; y < n; y++)
+	{
+		for (int x = 0; x < m; x++)
+		{
+			matrix[y][x] = arr[y][x] + arr2[y][x];
+			cout << matrix[y][x] << " ";
+		}
+		cout << endl;
 	}
 }
