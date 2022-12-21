@@ -8,74 +8,55 @@ using namespace std;
 
 /*
 
-11874번 ZAMKA
+5054번 주차의 신
 
 문제
-The impossible has happened. Bear G. has fallen into his own trap. Lured by a delicious box of Domaćica, without even thinking, he rushed and fell into his trap. In order to get out of the trap, he must solve the following task with your help. You are given three integers L, D i X.
+선영이는 쇼핑하러 긴 도로에 자주 간다. 선영이는 주차를 세상에서 가장 귀찮아 하기 때문에, 아무데나 주차를 한다. 주차를 한 후에는 가려고 했던 상점으로 걸어 간다.
 
-determine the minimal integer N such that L ≤ N ≤ D and the sum of its digits is X
-determine the maximal integer M such that L ≤ M ≤ D and the sum of its digits is X
-Bear will be able to escape from the trap if he correctly determines numbers N and M. The numbers N and M will always exist.
+어느 날, 선영이는 다리가 너무 아파서 병원에 갔다. 의사는 선영이에게 되도록 조금 걷거나, 쇼핑을 하지 말라고 했다. 선영이는 쇼핑을 버릴 수 없다. 그녀의 특기를 발휘해서 가장 좋은 주차 자리를 찾으려고 한다.
+
+긴 도로는 일직선이다. 또, 모든 상점의 위치는 정수 좌표를 가지고 있다. 주차장은 모든 정수 좌표마다 하나씩 있으며, 선영이를 위해 항상 비어있다. 선영이는 주차비를 아끼기 위해서 쇼핑을 마치기 전 까지는 주차한 차를 이동시키지 않을 것이다. 선영이는 힘이 매우 세기 때문에, 자신이 쇼핑한 물건을 모두 들지 못하는 경우는 없다. 가려고 계획한 상점은 모두 방문해야 한다.
 
 입력
-The first line of input contains the integer L (1 ≤ L ≤ 10 000), the number from the task.
-
-The second line of input contains the integer D (1 ≤ D ≤ 10 000, L ≤ D), the number from the task.
-
-The third line of input contains the integer X (1 ≤ X ≤ 36), the number from the task.
+첫째 줄에 테스트 케이스의 개수 t가 주어진다. (1 ≤ t ≤ 100) 모든 테스트 케이스는 두 줄로 이루어져 있다. 첫째 줄에는 선영이가 방문할 상점의 수 n이 주어지며 (1 ≤ n ≤ 20), 둘째 줄에는 상점의 위치가 주어진다. (0 ≤ xi ≤ 99)
 
 출력
-The first line of output must contain the integer N from the task.
-
-The second line of output must contain the integer M from the task
+선영이가 가려고 했던 모든 상점을 방문하고 차로 돌아오기 위해 걸어야 하는 거리의 최솟값을 출력한다.
 
 예제 입력 1
-1
-100
+2
 4
+24 13 89 37
+6
+7 30 41 14 39 42
+
 예제 출력 1
-4
-40
+152
+70
 
 */
 
-int L, D, X;
-
-int SumDigit(int n)
-{
-	int ret = 0;
-
-	while (n)
-	{
-		int num = n % 10;
-		ret += num;
-		n = n / 10;
-	}
-
-	return ret;
-}
+int T, N;
+int minNum = 101, maxNum = -1;
 
 int main()
 {
-	cin >> L >> D >> X;
-
-	for (int i = L; i <= D; i++)
+	cin >> T;
+	// 최소 최대 차이 곱하기 2
+	for (int i = 0; i < T; i++)
 	{
-		int ans = SumDigit(i);
-		if (ans == X)
-		{
-			cout << i << endl;
-			break;
-		}
-	}
+		cin >> N;
+		int num;
 
-	for (int i = D; i >= L; i--)
-	{
-		int ans = SumDigit(i);
-		if (ans == X)
+		for (int j = 0; j < N; j++)
 		{
-			cout << i << endl;
-			break;
+			cin >> num;
+			if (num >= maxNum)
+				maxNum = num;
+			if (num <= minNum)
+				minNum = num;
 		}
+		cout << (maxNum - minNum) * 2 << endl;
+		minNum = 101, maxNum = -1;
 	}
 }
