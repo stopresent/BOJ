@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <list>
 #include <stack>
@@ -8,74 +8,74 @@ using namespace std;
 
 /*
 
-2721¹ø »ï°¢¼öÀÇ ÇÕ
+11874ë²ˆ ZAMKA
 
-¹®Á¦
-n¹øÂ° »ï°¢¼ö, T(n)Àº 1ºÎÅÍ n±îÁöÀÇ ÇÕÀÌ´Ù. 
-T(n) = 1 + ... + n. ÀÌ°ÍÀº »ï°¢Çü ¸ğ¾çÀ¸·Î Ç¥ÇöÇÒ ¼ö ÀÖ´Ù. 
-¾Æ·¡ ±×¸²Àº T(4)¸¦ ³ªÅ¸³½ °ÍÀÌ´Ù.
+ë¬¸ì œ
+The impossible has happened. Bear G. has fallen into his own trap. Lured by a delicious box of DomaÄ‡ica, without even thinking, he rushed and fell into his trap. In order to get out of the trap, he must solve the following task with your help. You are given three integers L, D i X.
 
-´ÙÀ½°ú °°Àº ½ÄÀ» ÅëÇØ °¡ÁßÄ¡¸¦ ºÎ¿©ÇÑ »ï°¢¼öÀÇ ÇÕÀ» ±¸ÇÒ ¼ö ÀÖ´Ù.
+determine the minimal integer N such that L â‰¤ N â‰¤ D and the sum of its digits is X
+determine the maximal integer M such that L â‰¤ M â‰¤ D and the sum of its digits is X
+Bear will be able to escape from the trap if he correctly determines numbers N and M. The numbers N and M will always exist.
 
-W(n) = Sum[k=1..n; k*T(k+1)]
+ì…ë ¥
+The first line of input contains the integer L (1 â‰¤ L â‰¤ 10 000), the number from the task.
 
-nÀÌ ÁÖ¾îÁ³À» ¶§, W(n)À» ±¸ÇÏ´Â ÇÁ·Î±×·¥À» ÀÛ¼ºÇÏ½Ã¿À.
+The second line of input contains the integer D (1 â‰¤ D â‰¤ 10 000, L â‰¤ D), the number from the task.
 
-ÀÔ·Â
-Ã¹Â° ÁÙ¿¡ Å×½ºÆ® ÄÉÀÌ½ºÀÇ °³¼ö T°¡ ÁÖ¾îÁø´Ù. °¢ Å×½ºÆ® ÄÉÀÌ½º´Â Á¤¼ö n ÇÏ³ª·Î ÀÌ·ç¾îÁ® ÀÖ´Ù. (1<=n<=300)
+The third line of input contains the integer X (1 â‰¤ X â‰¤ 36), the number from the task.
 
-Ãâ·Â
-°¢ Å×½ºÆ® ÄÉÀÌ½º¿¡ ´ëÇØ W(n)À» ÇÑ ÁÙ¿¡ ÇÏ³ª¾¿ Ãâ·ÂÇÑ´Ù.
+ì¶œë ¥
+The first line of output must contain the integer N from the task.
 
-¿¹Á¦ ÀÔ·Â 1
+The second line of output must contain the integer M from the task
+
+ì˜ˆì œ ì…ë ¥ 1
+1
+100
 4
-3
+ì˜ˆì œ ì¶œë ¥ 1
 4
-5
-10
-
-¿¹Á¦ Ãâ·Â 1
-45
-105
-210
-2145
+40
 
 */
 
-int T;
+int L, D, X;
 
-int SumTriangleNum(int n)
+int SumDigit(int n)
 {
 	int ret = 0;
 
-	for (int i = 1; i <= n; i++)
+	while (n)
 	{
-		ret += i;
+		int num = n % 10;
+		ret += num;
+		n = n / 10;
 	}
 
 	return ret;
 }
 
-int SumWeightTriangleNum(int n)
+int main()
 {
-	int ret = 0;
+	cin >> L >> D >> X;
 
-	for (int i = 0; i <= n; i++)
+	for (int i = L; i <= D; i++)
 	{
-		ret += i * SumTriangleNum(i + 1);
+		int ans = SumDigit(i);
+		if (ans == X)
+		{
+			cout << i << endl;
+			break;
+		}
 	}
 
-	return ret;
-}
-
-int main() 
-{
-	cin >> T;
-	for (int i = 0; i < T; i++)
+	for (int i = D; i >= L; i--)
 	{
-		int num;
-		cin >> num;
-		int ret = SumWeightTriangleNum(num);
-		cout << ret << endl;
+		int ans = SumDigit(i);
+		if (ans == X)
+		{
+			cout << i << endl;
+			break;
+		}
 	}
 }
