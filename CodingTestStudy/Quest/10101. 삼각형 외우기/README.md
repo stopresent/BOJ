@@ -25,3 +25,5 @@
 50
 예제 출력 1 
 Scalene
+
+https://github.com/stopresent/BOJ/blob/c0a9537bc32e5cbe7b04cf532614d67d95f672b2/CodingTestStudy/Quest/10101.%20%EC%82%BC%EA%B0%81%ED%98%95%20%EC%99%B8%EC%9A%B0%EA%B8%B0/%EC%82%BC%EA%B0%81%ED%98%95%20%EC%99%B8%EC%9A%B0%EA%B8%B0.cpp#L8-L43
