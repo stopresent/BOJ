@@ -13,6 +13,17 @@ void solve()
 {
 	string str;
 	cin >> str;
+	vector<vector<int>> aCount(222222, vector<int>(26));
+	for (int i = 0; i < str.size(); ++i)
+	{
+		if (i != 0)
+		{
+			for (int j = 0; j < 26; ++j)
+				aCount[i][j] = aCount[i - 1][j];
+		}
+		int cur = str[i] - 'a';
+		aCount[i][cur]++;
+	}
 
 	int n;
 	cin >> n;
@@ -22,15 +33,12 @@ void solve()
 	for (int i = 0; i < n; ++i)
 	{
 		cin >> c >> first >> second;
+		int cur = c - 'a';
 
-		int res = 0;
-		for (int i = first; i <= second; ++i)
-		{
-			if (str[i] == c)
-				res++;
-		}
+		int sum1 = first > 0 ? aCount[first - 1][cur] : 0;
+		int sum2 = aCount[second][cur];
 
-		cout << res << '\n';
+		cout << sum2 - sum1 << '\n';
 	}
 }
 
