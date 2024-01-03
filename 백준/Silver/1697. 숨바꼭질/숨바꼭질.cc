@@ -29,7 +29,7 @@ void BFS(int here)
 			cout << cnt;
 			return;
 		}
-		if (here + 1 >= 0 && here + 1 < 100001)
+		if (here + 1 < 100001)
 		{
 			if (discovered[here + 1] == false)
 			{
@@ -37,7 +37,7 @@ void BFS(int here)
 				q.push({ here + 1, cnt + 1 });
 			}
 		}
-		if (here - 1 >= 0 && here - 1 < 100001)
+		if (here - 1 >= 0)
 		{
 			if (discovered[here - 1] == false)
 			{
