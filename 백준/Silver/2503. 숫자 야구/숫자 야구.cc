@@ -81,10 +81,6 @@ void solve()
 				vec[j]++;
 				maxNum = max(maxNum, vec[j]);
 			}
-			else
-			{
-				vec[j] = -100;
-			}
 		}
 	}
 
@@ -97,10 +93,7 @@ void solve()
 		}
 	}
 
-	if (maxNum == 0)
-		cout << 0;
-	else
-		cout << res;
+	cout << res;
 }
 
 int main()
