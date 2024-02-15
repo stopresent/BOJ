@@ -16,7 +16,6 @@ void solve();
 void BFS(int y, int x);
 void BFS2(int y, int x);
 void printBoard();
-void visitedClear();
 void Clear();
 
 int n, m, res = 0, totalCheese = 0;
@@ -26,13 +25,12 @@ vector<vector<int>> board;
 vector<vector<int>> isInAir; // 1이면 외부 공기 0이면 내부 공기
 vector<vector<int>> visited;
 vector<pair<int, int>> cheese;
-//vector<pair<int, int>> toClear;
 
 // 외부공기인지 내부공기인지
 // 접촉면을 확인하는것.
 // 치즈 그룹만들기
 
-// 치즈 그룹 만들기?
+// 치즈 그룹 만들기
 void BFS(int y, int x)
 {
 	queue<pair<int, int>> q;
@@ -66,14 +64,12 @@ void BFS(int y, int x)
 			visited[ny][nx] = 1;
 		}
 	}
-
 }
 
 // 내부 공기인지 판단하기
 void BFS2(int y, int x)
 {
 	queue<pair<int, int>> q;
-
 	q.push({ y, x });
 	isInAir[y][x] = 1;
 	pair<int, int> here;
@@ -113,11 +109,8 @@ void Clear()
 	}
 }
 
-void AddClearList()
+void meltCheese()
 {
-	// 바로 지우지말고 클리어 리스트만 채워주자
-	// 치즈 순회
-
 	for (int i = 0; i < cheese.size(); ++i)
 	{
 		int cnt = 0;
@@ -138,38 +131,7 @@ void AddClearList()
 				board[ch.first][ch.second] = 0;
 				totalCheese--;
 				break;
-				//toClear.push_back(ch);
 			}
-		}
-	}
-}
-
-//void clearCheese()
-//{
-//	for (int i = 0; i < toClear.size(); ++i)
-//	{
-//		board[toClear[i].first][toClear[i].second] = 0;
-//	}
-//}
-
-void visitedClear()
-{
-	for (int i = 1; i <= n; ++i)
-	{
-		for (int j = 1; j <= m; ++j)
-		{
-			visited[i][j] = 0;
-		}
-	}
-}
-
-void airCheckClear()
-{
-	for (int i = 1; i <= n; ++i)
-	{
-		for (int j = 1; j <= m; ++j)
-		{
-			isInAir[i][j] = 0;
 		}
 	}
 }
@@ -186,22 +148,6 @@ void printBoard()
 	}
 
 	cout << endl;
-}
-
-bool haveCheese()
-{
-	for (int i = 1; i <= n; ++i)
-	{
-		for (int j = 1; j <= m; ++j)
-		{
-			if (board[i][j] == 1)
-			{
-				return true;
-			}
-		}
-	}
-
-	return false;
 }
 
 void solve()
@@ -240,18 +186,16 @@ void solve()
 				BFS(i, j);
 				if (cheese.size() != 0)
 				{
-					AddClearList();
+					meltCheese();
 					cheese.clear();
 				}
 			}
 		}
 
-		//clearCheese();
-		//toClear.clear();
 		Clear();
-		//printBoard();
 		BFS2(1, 1);
 		res++;
+		//printBoard();
 	}
 }
 
