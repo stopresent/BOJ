@@ -27,7 +27,6 @@ void setting();
 void solve();
 void moveShark();
 void removeShark(int idx);
-void setSharks();
 void printBoard();
 
 // 1. 낚시왕이 오른쪽으로 한 칸 이동
@@ -120,7 +119,6 @@ void moveShark()
 			if (sharks[board[y][x]].z > sharks[i].z)
 			{
 				removeShark(i);
-				//board[y][x] = sharks[board[y][x]].r;
 			}
 			else
 			{
@@ -178,26 +176,6 @@ void removeShark(int idx)
 	sharks[idx].d = 0;
 	sharks[idx].s = 0;
 	sharks[idx].z = 0;
-}
-
-void setSharks()
-{
-	//for (int i = 1; i <= R; ++i)
-	//{
-	//	for (int j = 1; j <= C; ++j)
-	//	{
-	//		board[i][j] = 0;
-	//	}
-	//}
-
-	//for (int i = 0; i < sharks.size(); ++i)
-	//{
-	//	if (sharks[i].r == 0)
-	//		continue;
-	//	board[sharks[i].r][sharks[i].c] = 1;
-	//}
-
-	printBoard();
 }
 
 void printBoard()
