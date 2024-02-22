@@ -29,6 +29,7 @@ bool check(pair<int, int> p)
 	}
 
 	for (int i = 3 * square_x; i < 3 * square_x + 3; i++)
+	{
 		for (int j = 3 * square_y; j < 3 * square_y + 3; j++)
 		{
 			if (board[i][j] == board[p.first][p.second])
@@ -37,6 +38,7 @@ bool check(pair<int, int> p)
 					return false; // 같은 구역에 같은 숫자가 있으면 false 반환
 			}
 		}
+	}
 
 	return true; // 모든 조건 만족시 유효성 검사 통과
 }
@@ -44,12 +46,17 @@ void sudoku(int N)
 {
 	if (N == cnt) // 빈칸의 개수만큼을 채워서 스도쿠 판이 완성되면
 	{
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 9; i++) 
+		{
 			for (int j = 0; j < 9; j++)
+			{
 				cout << board[i][j];
+			}
 			cout << '\n';
 		} // 결과 출력
+
 		found = true; // 플래그 true로 변경
+
 		return;
 	}
 	for (int j = 1; j <= 9; j++)
@@ -64,13 +71,9 @@ void sudoku(int N)
 	board[points[N].first][points[N].second] = 0;// 최적해를 못찾았을 경우 값 비워주기
 	return;
 }
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-	//freopen("input.txt", "rt", stdin);
 
+void solve()
+{
 	pair<int, int> point;
 	for (int i = 0; i < 9; i++)
 	{
@@ -90,4 +93,16 @@ int main()
 	}
 
 	sudoku(0);
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	//freopen("input.txt", "rt", stdin);
+
+	solve();
+
+	return 0;
 }
