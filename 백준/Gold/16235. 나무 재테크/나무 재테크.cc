@@ -8,7 +8,6 @@
 #include <vector>
 #include <algorithm>
 #include <math.h>
-#include <deque>
 
 using namespace std;
 
@@ -27,7 +26,6 @@ int dy[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 int dx[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 vector<vector<int>> board; // 영양분을 계산하고 있다.
 vector<vector<vector<int>>> trees;
-//deque<int> tree[11][11];
 vector<Tree> deadTrees;
 vector<Tree> divTrees;
 vector<vector<int>> S2D2; // 겨울에 들어올 에너지 값을 저장한다.
@@ -40,7 +38,6 @@ void setting()
 	board = vector<vector<int>>(n + 1, vector<int>(n + 1, 5)); // 초기에는 5의 영양분이 있다.
 	S2D2 = vector<vector<int>>(n + 1, vector<int>(n + 1));
 	trees = vector<vector<vector<int>>>(n + 1, vector<vector<int>>(n + 1));
-	//trees.resize(n + 1);
 	// 겨울에 들어올 에너지 값 저장.
 	for (int y = 1; y <= n; ++y)
 	{
@@ -153,14 +150,6 @@ void solve()
 		autumn();
 		winter();
 	}
-
-	//sort(trees.begin(), trees.end());
-
-	// 남아있던 죽은 나무들 지우기.
-	//for (int i = 0; i < deadCnt; ++i)
-	//{
-	//	trees.pop_back();
-	//}
 
 	int cnt = 0;
 
