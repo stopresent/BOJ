@@ -1,14 +1,14 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-//#include <stdio.h>
-//#include <string.h>
-//#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 #include<iostream>
-//#include <fstream>
+#include <fstream>
 #include <vector>
 #include <algorithm>
-//#include <math.h>
-//#include <deque>
+#include <math.h>
+#include <deque>
 
 using namespace std;
 
