@@ -27,8 +27,6 @@ int r, c, k, total_time = 0;
 int r_len = 3, c_len = 3;
 vector<vector<int>> board;
 vector<Num> numbers;
-//vector<pair<int, int>> numbers;
-//vector<int> numbers;
 
 void R()
 {
@@ -111,20 +109,6 @@ void C()
 
 }
 
-void print_board()
-{
-	for (int y = 1; y <= r_len; ++y)
-	{
-		for (int x = 1; x <= c_len; ++x)
-		{
-			cout << board[y][x] << " ";
-		}
-		cout << endl;
-	}
-
-	cout << endl;
-}
-
 void solve()
 {
 	// 입력값 받기.
@@ -155,8 +139,6 @@ void solve()
 			R();
 		else
 			C();
-
-		//print_board();
 	}
 }
 
