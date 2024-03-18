@@ -17,24 +17,9 @@ int dy[] = { -1, 0, 1, 0 };
 int dx[] = { 0, 1, 0, -1 };
 vector<vector<int>> board;
 vector<vector<bool>> visited;
-
-void print_board()
-{
-	for (int y = 0; y < board_size; ++y)
-	{
-		for (int x = 0; x < board_size; ++x)
-		{
-			cout << board[y][x] << " ";
-		}
-		cout << endl;
-	}
-
-	cout << endl;
-}
-
 int clone[200][200];
 
-void rotate_square(int y1, int x1, int size) 
+void rotate(int y1, int x1, int size)
 {
 	for (int i = 0; i < size; i++)
 	{
@@ -48,25 +33,7 @@ void DFS(int y, int x, int size)
 	if (size == pow(2, L))
 	{
 		// L단계만큼 쪼개졌다.
-		
-		// 복사
-		//int clone[200][200];
-		//for (int i = y; i < y + size; ++i)
-		//{
-		//	for (int j = x; j < x + size; ++j)
-		//	{
-		//		clone[j][y + size - i - 1] = board[i][j];
-		//	}
-		//}
-		rotate_square(y, x, size);
-
-		//for (int i = y; i < y + size; ++i)
-		//{
-		//	for (int j = x; j < x + size; ++j)
-		//	{
-		//		board[i][j] = clone[j][board_size - i - 1];
-		//	}
-		//}
+		rotate(y, x, size);
 
 		for (int i = 0; i < size; ++i)
 		{
@@ -177,8 +144,6 @@ void solve()
 		}
 	}
 
-	//print_board();
-
 	for (int i = 0; i < Q; ++i)
 	{
 		cin >> L;
@@ -188,8 +153,6 @@ void solve()
 
 		//얼음 녹이기
 		melt();
-
-		//print_board();
 	}
 
 	// 남아있는 얼음의 합
