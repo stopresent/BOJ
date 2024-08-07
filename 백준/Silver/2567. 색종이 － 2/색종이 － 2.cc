@@ -16,41 +16,6 @@ int dy[] = { 0, 1, 0, -1, 1, 1, -1, -1 };
 int dx[] = { 1, 0, -1, 0, 1, -1, 1, -1 };
 const int side = 110;
 vector<vector<int>> board(101, vector<int>(101, 0));
-vector<vector<int>> newboard(101, vector<int>(101, 0));
-
-void PrintBoard()
-{
-	for (int y = 0; y < 100; ++y)
-	{
-		for (int x = 0; x < 100; ++x)
-		{
-			cout << board[y][x];
-		}
-
-		cout << endl;
-	}
-}
-
-void PrintNewBoard()
-{
-	int cnt = 0;
-	for (int y = 0; y < 100; ++y)
-	{
-		for (int x = 0; x < 100; ++x)
-		{
-			cout << newboard[y][x];
-			if (newboard[y][x] >= 1)
-			{
-				cnt++;
-
-			}
-		}
-
-		cout << endl;
-	}
-
-	cout << cnt;
-}
 
 void solve()
 {
@@ -69,7 +34,6 @@ void solve()
 			}
 		}
 	}
-	//PrintBoard();
 
 	int ret = 0;
 	for (int y = 0; y < 100; ++y)
@@ -94,7 +58,6 @@ void solve()
 		}
 	}
 
-	//PrintNewBoard();
 	cout << ret;
 }
 
