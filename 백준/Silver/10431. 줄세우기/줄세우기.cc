@@ -12,15 +12,6 @@
 
 using namespace std;
 
-void pintheight(vector<int> heightes)
-{
-	for (int i = 0; i < 20; ++i)
-	{
-		cout << heightes[i] << " ";
-	}
-	cout << endl;
-}
-
 void solve()
 {
 	int t;
@@ -38,7 +29,6 @@ void solve()
 			int height = heightes[j];
 			for (int k = j - 1; k >= 0; --k)
 			{
-				//pintheight(heightes);
 				if (heightes[k] > height)
 				{
 					swap(heightes[k], heightes[k + 1]);
