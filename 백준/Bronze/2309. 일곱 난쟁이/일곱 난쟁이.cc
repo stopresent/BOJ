@@ -7,47 +7,43 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <math.h>
+#include <climits>
 
 using namespace std;
 
-vector<int> arr(10);
-int total = 0;
+// 일곱 난쟁이
+// 순열 방법
+
 void solve()
 {
-	for (int i = 1; i <= 9; ++i)
+	int arr[9];
+	for (int i = 0; i < 9; ++i)
 	{
 		cin >> arr[i];
-		total += arr[i];
 	}
-
-	sort(arr.begin(), arr.end());
-
-	int temp;
-	for (int i = 1; i <= 9; ++i)
+	sort(arr, arr + 9);
+	do
 	{
-		for (int j = i + 1; j <= 9; ++j)
-		{
-			temp = total;
-			if (temp - arr[i] - arr[j] == 100)
-			{
-				for (int k = 1; k <= 9; ++k)
-				{
-					if (k == i || k == j)
-						continue;
-					cout << arr[k] << '\n';
-				}
-				return;
-			}
-		}
-	}
+		int sum = 0;
+		for (int i = 0; i < 7; ++i)
+			sum += arr[i];
+		if (sum == 100)
+			break;
+	} while (next_permutation(arr, arr + 9));
+
+	for (int i = 0; i < 7; ++i)
+		cout << arr[i] << '\n';
+
 }
 
-int main() 
+int main()
 {
+	FILE* stream;
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
-	//freopen("input.txt", "rt", stdin);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();
 
