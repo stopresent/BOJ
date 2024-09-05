@@ -8,83 +8,76 @@
 #include <vector>
 #include <algorithm>
 #include <math.h>
-#include <queue>
 #include <climits>
 
 using namespace std;
 
-int dy[] = { -1, 0, 1, 0 };
-int dx[] = { 0, 1, 0, -1 };
-int n, cnt = 0;
+int n, height;
 vector<vector<int>> board;
-int visited[110][110];
+vector<vector<int>> visited;
+int dy[] = { 0, 1, 0, -1 };
+int dx[] = { 1, 0, -1, 0 };
 
-void BFS(int y, int x, int height)
+void dfs(int y, int x)
 {
-	queue<pair<int, int>> q;
-	if (visited[y][x] == true || board[y][x] <= height)
-		return;
-	q.push({ y, x });
-	visited[y][x] = true;
-	cnt++;
-
-	pair<int, int> here;
-	while (q.empty() == false)
+	visited[y][x] = 1;
+	for (int i = 0; i < 4; ++i)
 	{
-		here = q.front();
-		q.pop();
+		int ny = y + dy[i];
+		int nx = x + dx[i];
+		if (ny < 0 || ny >= n || nx < 0 || nx >= n)
+			continue;
+		if (visited[ny][nx])
+			continue;
+		if (board[ny][nx] <= height)
+			continue;
 
-		for (int i = 0; i < 4; ++i)
-		{
-			int ny = here.first + dy[i];
-			int nx = here.second + dx[i];
-
-			if (ny < 1 || nx < 1 || ny > n || nx > n)
-				continue;
-			if (visited[ny][nx] == true)
-				continue;
-			if (board[ny][nx] <= height)
-				continue;
-
-			q.push({ ny, nx });
-			visited[ny][nx] = true;
-		}
+		dfs(ny, nx);
 	}
 }
 
 void solve()
 {
 	cin >> n;
-	board = vector<vector<int>>(n + 1, vector<int>(n + 1));
-	int min_num = INT_MAX, max_num = 0;
-	for (int y = 1; y <= n; ++y)
+
+	board = vector<vector<int>>(n, vector<int>(n));
+	visited = vector<vector<int>>(n, vector<int>(n));
+
+	int minH = INT_MAX;
+	int maxH = 0;
+	for (int y = 0; y < n; ++y)
 	{
-		for (int x = 1; x <= n; ++x)
+		for (int x = 0; x < n; ++x)
 		{
 			cin >> board[y][x];
-			min_num = min(min_num, board[y][x]);
-			max_num = max(max_num, board[y][x]);
+			minH = min(minH, board[y][x]);
+			maxH = max(maxH, board[y][x]);
 		}
 	}
 
-	int ans = 0;
-	for (int height = min_num - 1; height < max_num; ++height)
+	int ret = 1;
+	for (int h = minH; h < maxH; ++h)
 	{
-		for (int y = 1; y <= n; ++y)
+		int cnt = 0;
+		height = h;
+		visited = vector<vector<int>>(n, vector<int>(n));
+
+		for (int y = 0; y < n; ++y)
 		{
-			for (int x = 1; x <= n; ++x)
+			for (int x = 0; x < n; ++x)
 			{
-				if (board[y][x] > height)
-					BFS(y, x, height);
+				if (board[y][x] > height && visited[y][x] == 0)
+				{
+					cnt++;
+					dfs(y, x);
+				}
 			}
 		}
 
-		ans = max(ans, cnt);
-		cnt = 0;
-		::memset(&visited, 0, sizeof(visited));
+		ret = max(ret, cnt);
 	}
 
-	cout << ans;
+	cout << ret;
 }
 
 int main()
