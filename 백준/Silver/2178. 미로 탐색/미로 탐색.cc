@@ -7,143 +7,68 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <math.h>
+#include <climits>
 #include <queue>
-#include <map>
 
 using namespace std;
 
 int n, m;
 vector<vector<int>> board;
-vector<vector<bool>> discovered;
+vector<vector<int>> visited;
+int dx[] = { 0, 1, 0, -1 };
+int dy[] = { 1, 0, -1, 0 };
 
-struct Pos
-{
-	bool operator==(Pos& other)
-	{
-		return y == other.y && x == other.x;
-	}
-
-	bool operator!=(Pos& other)
-	{
-		return !(*this == other);
-	}
-
-	bool operator<(const Pos& other) const
-	{
-		if (y != other.y)
-			return y < other.y;
-		return x < other.x;
-	}
-
-	Pos operator+(Pos& other)
-	{
-		Pos ret;
-		ret.y = y + other.y;
-		ret.x = x + other.x;
-		return ret;
-	}
-
-	Pos& operator+=(Pos& other)
-	{
-		y += other.y;
-		x += other.x;
-		return *this;
-	}
-
-	int y;
-	int x;
-};
-
-Pos front[4] =
-{
-	Pos { -1, 0}, // UP
-	Pos { 0, -1}, // LEFT
-	Pos { 1, 0},  // DOWN
-	Pos { 0, 1},  // RIGHT
-};
-
-// 1은 지나갈 수 있다.
-// 0은 벽
-void setting()
+void solve()
 {
 	cin >> n >> m;
 	board = vector<vector<int>>(n, vector<int>(m));
-	discovered = vector<vector<bool>>(n, vector<bool>(m, false));
-	string str;
+	visited = vector<vector<int>>(n, vector<int>(m));
+	string temp;
 	for (int i = 0; i < n; ++i)
 	{
-		cin >> str;
-		for (int j = 0; j < m; ++j)
+		cin >> temp;
+		for (int j = 0; j < temp.size(); ++j)
 		{
-			board[i][j] = str[j] - '0';
+			board[i][j] = temp[j] - '0';
 		}
 	}
-}
 
-bool CanGo(Pos pos)
-{
-	if (pos.y < 0 || pos.x < 0)
-		return false;
-	if (pos.y > n - 1 || pos.x > m - 1)
-		return false;
-	return board[pos.y][pos.x] == 1;
-}
-
-void Bfs(Pos pos)
-{
-	map<Pos, Pos> parent;
-
-	int res = 1;
-	Pos dest = { n - 1, m - 1 };
-	queue<Pos> q;
-	q.push(pos);
-	discovered[pos.y][pos.x] = true;
-	parent[pos] = pos;
-
-	while (q.empty() == false)
+	queue<pair<int, int>> q;
+	q.push({0, 0});
+	visited[0][0] = 1;
+	while (q.size())
 	{
-		pos = q.front();
+		pair<int, int> here = q.front();
 		q.pop();
 
-		if (pos == dest)
-			break;
-
-		for (int dir = 0; dir < 4; ++dir)
+		for (int i = 0; i < 4; ++i)
 		{
-			Pos nextPos = pos + front[dir];
-			if (CanGo(nextPos) == false)
+			int ny = here.first + dy[i];
+			int nx = here.second + dx[i];
+			if (ny < 0 || ny >= n || nx < 0 || nx >= m)
 				continue;
-			if (discovered[nextPos.y][nextPos.x])
+			if (visited[ny][nx])
 				continue;
-
-			q.push(nextPos);
-			discovered[nextPos.y][nextPos.x] = true;
-			parent[nextPos] = pos;
+			if (board[ny][nx] == 0)
+				continue;
+			visited[ny][nx] = visited[here.first][here.second] + 1;
+			q.push({ ny, nx });
 		}
 	}
 
-	while (true)
-	{
-		if (pos == parent[pos])
-			break;
-
-		pos = parent[pos];
-		res++;
-	}
-
-	cout << res;
+	cout << visited[n - 1][m - 1];
 }
 
-int main() 
+int main()
 {
+	FILE* stream;
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
-	//freopen("input.txt", "rt", stdin);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
 
-	Pos pos = { 0, 0 };
-	setting();
-	Bfs(pos);
+	solve();
 
 	return 0;
 }
