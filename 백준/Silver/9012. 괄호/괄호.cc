@@ -1,62 +1,62 @@
-#include <iostream>
-#include <algorithm>
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include<iostream>
+#include <fstream>
 #include <vector>
-#include <list>
-#include <stack>
-#include <queue>
-#include <map>
+#include <algorithm>
+#include <math.h>
+#include <climits>
 
 using namespace std;
 
-bool CheckVPS(string str)
+int n;
+
+void solve()
 {
-	int firstCount = 0, secondCount = 0;
-
-	for (int i = 0; i < str.length(); i++)
+	cin >> n;
+	string s;
+	for (int i = 0; i < n; ++i)
 	{
-		if (secondCount > firstCount)
-			return false;
+		cin >> s;
 
-		char strIndex = str[i];
-		if (strIndex == '(')
-			firstCount++;
+		int cnt = 0;
+		bool flag = true;
+		for (int j = 0; j < s.size(); ++j)
+		{
+			if (s[j] == '(')
+				cnt++;
+			else
+				cnt--;
+
+			if (cnt < 0)
+			{
+				flag = false;
+				break;
+			}
+		}
+
+		if (cnt != 0)
+			flag = false;
+
+		if (flag)
+			cout << "YES" << '\n';
 		else
-			secondCount++;
+			cout << "NO" << '\n';
 	}
-
-	if (firstCount != secondCount)
-		return false;
-
-	return true;
 }
 
 int main()
 {
-	int N;
-	char first = '(';
-	char second = ')';
-	string inputString;
-	cin >> N;
+	FILE* stream;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
 
-	vector<string> ans;
+	solve();
 
-	while (true)
-	{
-		if (N == 0)
-			break;
-
-		cin >> inputString;
-
-		if (CheckVPS(inputString))
-			ans.push_back("YES");
-		else
-			ans.push_back("NO");
-
-		N--;
-	}
-
-	for (int i = 0; i < ans.size(); i++)
-	{
-		cout << ans[i] << '\n';
-	}
+	return 0;
 }
