@@ -1,52 +1,80 @@
-#include <iostream>
-#include <string>
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include<iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <math.h>
+#include <climits>
 #include <stack>
+#include <string>
+
 using namespace std;
- 
-int main() {
-    while (true) {
-        string input;
-        getline(cin, input);
- 
-        if (input == ".") {
-            break;
-        }
- 
-        stack<char> s;
-        bool flag = 0;
-        for (int i = 0; i < input.length(); i++) {
-            char c = input[i];
-                
-            if ((c == '(') || (c == '[')) {
-                s.push(c);
-            }
-            else if (c == ')') {
-                if (!s.empty() && s.top() == '(') {
-                    s.pop();
-                }
-                else {
-                    flag = 1;
-                    break;
-                }
-            }
-            else if (c == ']') {
-                if (!s.empty() && s.top() == '[') {
-                    s.pop();
-                }
-                else {
-                    flag = 1;
-                    break;
-                }
-            }
-        }
- 
-        if (flag==0 && s.empty()) {
-            cout << "yes" << endl;
-        }
-        else {
-            cout << "no" << endl;
-        }
- 
-    }
- 
+
+
+void solve()
+{
+	while (true)
+	{
+		string s;
+		getline(cin, s);
+		if (s == ".")
+			break;
+
+		bool flag = true;
+		stack<char> st;
+
+		for (int i = 0; i < s.size(); ++i)
+		{
+			if (s[i] == '(')
+			{
+				st.push('(');
+			}
+			else if (s[i] == ')')
+			{
+				if (!st.empty() && st.top() == '(')
+					st.pop();
+				else
+				{
+					flag = false;
+					break;
+				}
+			}
+			else if (s[i] == '[')
+			{
+				st.push('[');
+			}
+			else if (s[i] == ']')
+			{
+				if (!st.empty() && st.top() == '[')
+					st.pop();
+				else
+				{
+					flag = false;
+					break;
+				}
+			}
+		}
+
+		if (st.empty() && flag)
+			cout << "yes" << '\n';
+		else
+			cout << "no" << '\n';
+	}
+}
+
+int main()
+{
+	FILE* stream;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
+
+	solve();
+
+	return 0;
 }
