@@ -12,11 +12,9 @@ void solve()
 
 	dp1[1] = 0;
 	dp1[2] = 1;
-	dp1[3] = 1;
 	dp2[1] = 1;
 	dp2[2] = 0;
-	dp2[3] = 1;
-	for (int i = 4; i <= n; ++i)
+	for (int i = 3; i <= n; ++i)
 	{
 		dp1[i] = dp1[i - 1] + dp2[i - 1];
 		dp2[i] = dp1[i - 1];
