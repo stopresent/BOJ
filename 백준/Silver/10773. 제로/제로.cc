@@ -7,20 +7,21 @@ int k, ret;
 void solve()
 {
 	cin >> k;
-	vector<int> v;
+	stack<int> s;
 	int temp;
 	for (int i = 0; i < k; ++i)
 	{
 		cin >> temp;
 		if (temp == 0)
-			v.pop_back();
+			s.pop();
 		else
-			v.push_back(temp);
+			s.push(temp);
 	}
 
-	for (int i = 0; i < v.size(); ++i)
+	while (s.empty() == false)
 	{
-		ret += v[i];
+		ret += s.top();
+		s.pop();
 	}
 
 	cout << ret;
