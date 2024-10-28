@@ -1,61 +1,52 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <list>
-#include <stack>
-#include <queue>
-#include <map>
-
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 using namespace std;
 
 int n, k;
-vector<int> ans;
-queue<int> q;
 
-void Setting()
+void solve()
 {
 	cin >> n >> k;
-
-	for (int i = 0; i < n; ++i)
+	list<int> li;
+	for (int i = 1; i <= n; ++i)
+		li.push_back(i);
+	auto it = li.begin();
+	cout << "<";
+	while (li.size() != 1)
 	{
-		q.push(i + 1);
-	}
-}
-
-void Josephus()
-{
-	int jCount = 0;
-	while (q.empty() == false)
-	{
-		jCount++;
-		if (jCount % k != 0)
+		for (int i = 0; i < k - 1; ++i)
 		{
-			int value = q.front();
-			q.pop();
-			q.push(value);
+			if (it != li.end())
+			{
+				it++;
+				if (it == li.end())
+					it = li.begin();
+			}
+			else
+			{
+				it = li.begin();
+			}
 		}
-		else
-		{
-			jCount = 0;
-			ans.push_back(q.front());
-			q.pop();
-		}
+
+		auto temp = it;
+		cout << *temp << ", ";
+		it = li.erase(temp);
+		if (it == li.end())
+			it = li.begin();
 	}
 
-	cout << "<" << ans[0];
-	for (int i = 1; i < ans.size(); ++i)
-	{
-		cout << ", " << ans[i];
-	}
-	cout << ">";
+	cout << *it << ">";
 }
 
 int main()
 {
+	FILE* stream;
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
 
-	Setting();
-	Josephus();
+	solve();
+
+	return 0;
 }
