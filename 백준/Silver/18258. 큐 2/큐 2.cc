@@ -1,97 +1,66 @@
-#include <iostream>
-#include <algorithm>
-#include <list>
-#include <queue>
-
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 using namespace std;
 
-class Queue
+int n;
+queue<int> q;
+map<string, int> m;
+
+void solve()
 {
-public:
-	void push(const int& value)
+	cin >> n;
+
+	m["push"] = 1;
+	m["pop"] = 2;
+	m["size"] = 3;
+	m["empty"] = 4;
+	m["front"] = 5;
+	m["back"] = 6;
+
+	string str;
+	for (int i = 0; i < n; ++i)
 	{
-		_container.push_back(value);
+		cin >> str;
+		int idx = m[str];
+		int temp;
+		switch (idx)
+		{
+		case 1:
+			cin >> temp;
+			q.push(temp);
+			break;
+		case 2:
+			if (q.empty()) cout << -1 << '\n';
+			else { cout << q.front() << '\n'; q.pop(); }
+			break;
+		case 3:
+			cout << q.size() << '\n';
+			break;
+		case 4:
+			if (q.empty()) cout << 1 << '\n';
+			else cout << 0 << '\n';
+			break;
+		case 5:
+			if (q.empty()) cout << -1 << '\n';
+			else cout << q.front() << '\n';
+			break;
+		case 6:
+			if (q.empty()) cout << -1 << '\n';
+			else cout << q.back() << '\n';
+			break;
+		}
 	}
-
-	int pop()
-	{
-		if (_container.empty())
-			return -1;
-
-		int ret = _container.front();
-		_container.pop_front();
-		return ret;
-	}
-
-	int front()
-	{
-		if (!_container.empty())
-			return _container.front();
-		else
-			return -1;
-	}
-
-	int back()
-	{
-		if (!_container.empty())
-			return _container.back();
-		else
-			return -1;
-	}
-
-	int size() { return _container.size(); }
-	bool empty() { return _container.empty(); }
-
-public:
-	list<int> _container;
-};
+}
 
 int main()
 {
+	FILE* stream;
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
 
-	int N;
-	int tempInt;
-	string tempString;
-	Queue q;
+	solve();
 
-	cin >> N;
-
-	while (N > 0)
-	{
-		cin >> tempString;
-
-		if (tempString == "push")
-		{
-			cin >> tempInt;
-			q.push(tempInt);
-		}
-		else if (tempString == "pop")
-		{
-			cout << q.pop() << '\n';
-		}
-		else if (tempString == "size")
-		{
-			cout << q.size() << '\n';
-		}
-		else if (tempString == "empty")
-		{
-			if (q.empty())
-				cout << 1 << '\n';
-			else
-				cout << 0 << '\n';
-		}
-		else if (tempString == "front")
-		{
-			cout << q.front() << '\n';
-		}
-		else if (tempString == "back")
-		{
-			cout << q.back() << '\n';
-		}
-
-		N--;
-	}
+	return 0;
 }
