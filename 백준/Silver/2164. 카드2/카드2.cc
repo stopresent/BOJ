@@ -10,26 +10,16 @@ void solve()
 	cin >> n;
 
 	for (int i = 1; i <= n; ++i)
-	{
 		q.push(i);
-	}
 
-	while (!q.empty())
+	while (q.size() != 1)
 	{
-		if (q.size() == 1)
-		{
-			cout << q.front();
-			break;
-		}
-
 		q.pop();
-		if (q.empty() == false)
-		{
-			int temp = q.front();
-			q.pop();
-			q.push(temp);
-		}
+		int temp = q.front();
+		q.pop();
+		q.push(temp);
 	}
+	cout << q.front();
 }
 
 int main()
