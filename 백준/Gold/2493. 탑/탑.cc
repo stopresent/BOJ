@@ -1,33 +1,22 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <stack>
-#include <queue>
-
+#include <bits/stdc++.h>
 using namespace std;
+
+int n;
+stack<pair<int, int>> s;
 
 void solve()
 {
-	int n;
-	stack<pair<int, int>> s;
-
 	cin >> n;
 
+	int temp;
 	for (int i = 0; i < n; ++i)
 	{
-		int height;
-		cin >> height;
+		cin >> temp;
 
 		while (s.empty() == false)
 		{
-			if (height < s.top().second)
+			if (temp < s.top().second)
 			{
 				cout << s.top().first << " ";
 				break;
@@ -39,16 +28,17 @@ void solve()
 		if (s.empty())
 			cout << 0 << " ";
 
-		s.push({ i + 1, height });
+		s.push({ i + 1, temp });
 	}
 }
 
 int main()
 {
+	FILE* stream;
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
-	//freopen("input.txt", "rt", stdin);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();
 
