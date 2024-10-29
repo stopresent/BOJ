@@ -22,31 +22,6 @@ void solve()
 		board[v].push_back({ u, c });
 	}
 
-	// 루트1로 가정하고
-	// 루트로부터의 거리 구하기
-	//dist[1] = 0;
-	//queue<int> q;
-	//q.push(1);
-	//visited[1] = 1;
-
-	//while (q.empty() == false)
-	//{
-	//	int here = q.front();
-	//	q.pop();
-
-	//	for (int i = 0; i < board[here].size(); ++i)
-	//	{
-	//		int next = board[here][i].first;
-
-	//		if (visited[next])
-	//			continue;
-
-	//		dist[next] = dist[here] + board[here][i].second;
-	//		q.push(next);
-	//		visited[next] = 1;
-	//	}
-	//}
-
 	for (int i = 0; i < m; ++i)
 	{
 		cin >> u >> v;
