@@ -5,14 +5,12 @@ using namespace std;
 int n, m;
 vector<vector<int>> board;
 vector<int> v;
-vector<int> visited;
 
 void solve()
 {
 	cin >> n >> m;
 	board = vector<vector<int>>(n + 1);
 	v = vector<int>(n + 1);
-	visited = vector<int>(n + 1);
 
 	for (int i = 1; i <= n; ++i)
 	{
@@ -29,31 +27,20 @@ void solve()
 		cin >> idx >> w;
 		v[idx] += w;
 	}
-	
-	for (int i = 1; i <= n; ++i)
+
+	queue<int> q;
+	q.push(1);
+	while (q.empty() == false)
 	{
-		if (visited[i])
-			continue;
+		int here = q.front();
+		q.pop();
 
-		queue<int> q;
-		q.push(1);
-		visited[1] = 1;
-		while (q.empty() == false)
+		for (int i = 0; i < board[here].size(); ++i)
 		{
-			int here = q.front();
-			q.pop();
+			int next = board[here][i];
 
-			for (int i = 0; i < board[here].size(); ++i)
-			{
-				int next = board[here][i];
-
-				if (visited[next])
-					continue;
-
-				v[next] += v[here];
-				visited[next] = 1;
-				q.push(next);
-			}
+			v[next] += v[here];
+			q.push(next);
 		}
 	}
 
