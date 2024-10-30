@@ -1,61 +1,68 @@
-#include <iostream>
-#include <vector>
-
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 using namespace std;
 
-vector<int> parent(100001);
+vector<int> unf;
+int n, m;
 
-// Find 함수: 경로 압축을 사용하여 부모 노드를 찾음
-int find(int x) {
-    if (parent[x] == x) return x;
-    return parent[x] = find(parent[x]);
+int Find(int v)
+{
+	if (v == unf[v])
+		return v;
+	return unf[v] = Find(unf[v]);
 }
 
-// Union 함수: 두 집합을 합침
-void unionSet(int a, int b) {
-    int rootA = find(a);
-    int rootB = find(b);
-    if (rootA != rootB) {
-        parent[rootB] = rootA;
-    }
+void Union(int u, int v)
+{
+	u = Find(u);
+	v = Find(v);
+	if (u != v)
+		unf[u] = v;
 }
 
-int main() {
-    int n, m;
-    cin >> n >> m;
+void solve()
+{
+	cin >> n >> m;
+	unf = vector<int>(n + 1);
+	for (int i = 1; i <= n; ++i)
+	{
+		unf[i] = i;
+	}
+	int cnt1 = 0, cnt2 = 0; // cycle count, tree count
 
-    // 부모 배열 초기화
-    for (int i = 1; i <= n; i++) {
-        parent[i] = i;
-    }
+	for (int i = 0; i < m; ++i)
+	{
+		int u, v;
+		cin >> u >> v;
 
-    int cycleCount = 0;
+		if (Find(u) == Find(v))
+		{
+			cnt1++;
+		}
+		else
+		{
+			Union(u, v);
+		}
+	}
 
-    // 간선 입력 받기
-    for (int i = 0; i < m; i++) {
-        int u, v;
-        cin >> u >> v;
+	for (int i = 1; i <= n; ++i)
+	{
+		if (Find(i) == i)
+			cnt2++;
+	}
 
-        if (find(u) == find(v)) {
-            // 두 노드가 이미 같은 집합에 속해있다면 사이클 발생
-            cycleCount++;
-        } else {
-            // 두 노드를 같은 집합으로 합침
-            unionSet(u, v);
-        }
-    }
+	cout << cnt1 + cnt2 - 1;
+}
 
-    // 연결 요소의 개수 계산
-    int components = 0;
-    for (int i = 1; i <= n; i++) {
-        if (find(i) == i) {
-            components++;
-        }
-    }
+int main()
+{
+	FILE* stream;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
 
-    // 결과 계산: 사이클의 개수 + (연결 요소의 개수 - 1)
-    int result = cycleCount + (components - 1);
-    cout << result << '\n';
+	solve();
 
-    return 0;
+	return 0;
 }
