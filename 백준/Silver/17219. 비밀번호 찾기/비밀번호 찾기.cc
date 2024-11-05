@@ -1,34 +1,24 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-#include <map>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-map<string, string> cache;
+unordered_map<string, string> um;
+int n, m;
 
 void solve()
 {
-	int n, m;
 	cin >> n >> m;
-	string adrress, passWord;
+	string s1, s2;
 	for (int i = 0; i < n; ++i)
 	{
-		cin >> adrress >> passWord;
-		cache[adrress] = passWord;
+		cin >> s1 >> s2;
+		um[s1] = s2;
 	}
+
 	for (int i = 0; i < m; ++i)
 	{
-		cin >> adrress;
-		cout << cache[adrress] << '\n';
+		cin >> s1;
+		cout << um[s1] << '\n';
 	}
 }
 
