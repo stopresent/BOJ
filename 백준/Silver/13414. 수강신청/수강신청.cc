@@ -1,56 +1,33 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-#include <unordered_map>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 int k, l;
-unordered_map<string, int> um;
+unordered_map<string, int> m;
+vector<pair<string, int>> v;
+
+bool cmp(pair<string, int>& a, pair<string, int> b)
+{
+	return a.second < b.second;
+}
 
 void solve()
 {
 	cin >> k >> l;
-	vector<string> v;
-
+	string num;
+	int idx = 0;
 	for (int i = 0; i < l; ++i)
 	{
-		string num;
 		cin >> num;
-		v.push_back(num);
-		um[num]++;
+		m[num] = idx++;
 	}
+	v = vector<pair<string, int>>(m.begin(), m.end());
+	sort(v.begin(), v.end(), cmp);
 
-	int cnt = 0;
-	vector<string> ans;
-	for (int i = 0; i < v.size(); ++i)
+	int cnt = min(k, (int)v.size());
+	for (int i = 0; i < cnt; ++i)
 	{
-		string num = v[i];
-		if (um[num] == 1)
-		{
-			um[num]--;
-			ans.push_back(num);
-			cnt++;
-			if (cnt == k)
-				break;
-		}
-		else
-		{
-			um[num]--;
-		}
-	}
-
-	for (int i = 0; i < ans.size(); ++i)
-	{
-		cout << ans[i] << '\n';
+		cout << v[i].first << '\n';
 	}
 }
 
