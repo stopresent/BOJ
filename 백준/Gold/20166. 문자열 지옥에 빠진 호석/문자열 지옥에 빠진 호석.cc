@@ -52,6 +52,7 @@ void solve()
 		for (int j = 0; j < M; j++)
 		{
 			s.push_back(board[i][j]);
+			m[s]++;
 			dfs(i, j);
 			s.clear();
 		}
