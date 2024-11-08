@@ -1,4 +1,4 @@
-﻿namespace DummyClient
+namespace DummyClient
 {
     internal class Program
     {
