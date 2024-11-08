@@ -7,23 +7,23 @@ vector<string> ret;
 vector<char> v;
 vector<bool> visited(10);
 
-void dfs(int L, string cur) 
+void dfs(int L, string cur)
 {
-    if (L == n + 1) {
+    if (L == n + 1)
+    {
         ret.push_back(cur);
         return;
     }
 
-    for (int i = 0; i <= 9; i++) 
+    for (int i = 0; i <= 9; ++i)
     {
-        if (!visited[i]) 
+        if (visited[i])
+            continue;
+        if (L == 0 || (v[L - 1] == '<' && cur.back() - '0' < i) || (v[L - 1] == '>' && cur.back() - '0' > i))
         {
-            if (L == 0 || (v[L - 1] == '<' && cur.back() - '0' < i) || (v[L - 1] == '>' && cur.back() - '0' > i))
-            {
-                visited[i] = true;
-                dfs(L + 1, cur + to_string(i));
-                visited[i] = false;
-            }
+            visited[i] = true;
+            dfs(L + 1, cur + to_string(i));
+            visited[i] = false;
         }
     }
 }
@@ -38,8 +38,7 @@ void solve()
     dfs(0, "");
     sort(ret.begin(), ret.end());
     cout << ret.back() << '\n';
-    cout << ret.front() << '\n';
-		
+    cout << ret.front() << '\n';	
 }
 
 int main()
