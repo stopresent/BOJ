@@ -6,9 +6,8 @@ void solve()
 {
 	int x1, x2, a, b, c, d, e;
 	cin >> x1 >> x2 >> a >> b >> c >> d >> e;
-	b = b - d;
-	c = c - e;
-
+	b -= d;
+	c -= e;
 	a /= 3;
 	b /= 2;
 	
