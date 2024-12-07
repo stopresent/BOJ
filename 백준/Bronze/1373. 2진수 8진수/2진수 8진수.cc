@@ -21,22 +21,22 @@ void solve()
         temp = 3;
 
     // 첫 번째 그룹 처리
-    int val = 0;
+    int num = 0;
     for (int i = 0; i < temp; i++)
     {
-        val = val * 2 + (str[i] - '0');
+        num = num * 2 + (str[i] - '0');
     }
-    ret += to_string(val);
+    ret += to_string(num);
 
     // 나머지 그룹 처리
     for (int i = temp; i < str.length(); i += 3)
     {
-        val = 0;
+        num = 0;
         for (int j = 0; j < 3; j++)
         {
-            val = val * 2 + (str[i + j] - '0');
+            num = num * 2 + (str[i + j] - '0');
         }
-        ret += to_string(val);
+        ret += to_string(num);
     }
 
     cout << ret;
