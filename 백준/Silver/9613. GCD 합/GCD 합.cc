@@ -19,14 +19,6 @@ void solve()
 	{
 		cin >> n;
 
-		if (n == 1)
-		{
-			int temp;
-			cin >> temp;
-			cout << temp << '\n';
-			continue;
-		}
-
 		vector<int> v(n);
 		long long ret = 0;
 		for (int i = 0; i < n; ++i)
