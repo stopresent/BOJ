@@ -6,7 +6,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <queue>
-#include <map>
+#include <algorithm>
 using namespace std;
 
 struct Pos

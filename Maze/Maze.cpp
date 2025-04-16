@@ -2,7 +2,7 @@
 #include "ConsoleHelper.h"
 #include "Board.h"
 #include "Player.h"
-// ¹Ì·Î ½Ã¸®Áî È¯°æ ¼³Á¤ ¿Ï·á!
+// ï¿½Ì·ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½!
 
 Board board;
 Player player;
@@ -23,19 +23,19 @@ int main()
 
 	while (true)
 	{
-#pragma region ÇÁ·¹ÀÓ °ü¸®
-		// deltaTickÀº ¾îµû ½á¸Ô³Ä
+#pragma region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// deltaTickï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ô³ï¿½
 		uint64 currentTick = ::GetTickCount64();
 		uint64 deltaTick = lastTick - currentTick;
 		lastTick = currentTick;
 #pragma endregion
 
-		// ÀÔ·Â
+		// ï¿½Ô·ï¿½
 
-		// ·ÎÁ÷
+		// ï¿½ï¿½ï¿½ï¿½
 		player.Update(deltaTick);
 
-		// ·£´õ¸µ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		board.Render();
 	}
 }

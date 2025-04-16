@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "DisjointSet.h"
 
-const char* TILE = "¡á";
+const char* TILE = "  ";
 
 Board::Board()
 {
@@ -40,7 +40,7 @@ void Board::Render()
 	}
 }
 
-// Binary Tree ¹Ì·Î »ı¼º ¾Ë°í¸®Áò
+// Binary Tree  Ì·        Ë°    
 // - Mazes For Programmers
 void Board::GenerateMapByBinaryTree()
 {
@@ -55,7 +55,7 @@ void Board::GenerateMapByBinaryTree()
 		}
 	}
 
-	// ·£´ıÀ¸·Î ¿ìÃø È¤Àº ¾Æ·¡·Î ±æÀ» ¶Õ´Â ÀÛ¾÷
+	//               È¤    Æ·          Õ´   Û¾ 
 	for (int32 y = 0; y < _size; y++)
 	{
 		for (int x = 0; x < _size; x++)
@@ -118,7 +118,7 @@ void Board::GenerateMapByKruskal()
 
 	vector<CostEdge> edges;
 
-	// edges ÈÄº¸¸¦ ·£´ı cost·Î µî·ÏÇÑ´Ù
+	// edges  Äº         cost       Ñ´ 
 	for (int32 y = 0; y < _size; y++)
 	{
 		for (int32 x = 0; x < _size; x++)
@@ -126,14 +126,14 @@ void Board::GenerateMapByKruskal()
 			if (x % 2 == 0 || y % 2 == 0)
 				continue;
 
-			// ¿ìÃø ¿¬°áÇÏ´Â °£¼± ÈÄº¸
+			//           Ï´        Äº 
 			if (x < _size - 2)
 			{
 				const int32 randValue = ::rand() % 100;
 				edges.push_back(CostEdge{ randValue, Pos{y, x}, Pos{y, x + 2} });
 			}
 
-			// ¾Æ·¡ ¿¬°áÇÏ´Â °£¼± ÈÄº¸
+			//  Æ·       Ï´        Äº 
 			if (y < _size - 2)
 			{
 				const int32 randValue = ::rand() % 100;
@@ -150,14 +150,14 @@ void Board::GenerateMapByKruskal()
 	{
 		int u = edge.u.y * _size + edge.u.x;
 		int v = edge.v.y * _size + edge.v.x;
-		// °°Àº ±×·ìÀÌ¸é ½ºÅµ ( ¾È ±×·¯¸é »çÀÌÅ¬ ¹ß»ı )
+		//       ×·  Ì¸    Åµ (     ×·        Å¬  ß»  )
 		if (sets.Find(u) == sets.Find(v))
 			continue;
 
-		// µÎ ±×·ìÀ» ÇÕÄ£´Ù
+		//     ×·      Ä£  
 		sets.Union(u, v);
 
-		// ¸Ê¿¡ Àû¿ë
+		//  Ê¿      
 		int y = (edge.u.y + edge.v.y) / 2;
 		int x = (edge.u.x + edge.v.x) / 2;
 		_tile[y][x] = TileType::EMPTY;
@@ -189,10 +189,10 @@ void Board::GenerateMapByPrim()
 		}
 	}
 
-	// edges[u] : u Á¤Á¡°ú ¿¬°áµÈ °£¼± ¸ñ·Ï
+	// edges[u] : u                      
 	map<Pos, vector<CostEdge>> edges;
 
-	// edges ÈÄº¸¸¦ ·£´ıÀ¸·Î µî·ÏÇÑ´Ù
+	// edges  Äº                 Ñ´ 
 	for (int32 y = 0; y < _size; y++)
 	{
 		for (int32 x = 0; x < _size; x++)
@@ -200,7 +200,7 @@ void Board::GenerateMapByPrim()
 			if (x % 2 == 0 || y % 2 == 0)
 				continue;
 
-			// ¿ìÃø ¿¬°áÇÏ´Â °£¼± ÈÄº¸
+			//           Ï´        Äº 
 			if (x < _size - 2)
 			{
 				const int32 randValue = ::rand() % 100;
@@ -210,7 +210,7 @@ void Board::GenerateMapByPrim()
 				edges[v].push_back(CostEdge{ randValue, u });
 			}
 
-			// ¾Æ·¡ ¿¬°áÇÏ´Â °£¼± ÈÄº¸
+			//  Æ·       Ï´        Äº 
 			if (y < _size - 2)
 			{
 				const int32 randValue = ::rand() % 100;
@@ -222,16 +222,16 @@ void Board::GenerateMapByPrim()
 		}
 	}
 
-	// ÇØ´ç Á¤Á¡ÀÌ Æ®¸®¿¡ Æ÷ÇÔµÇ¾î ÀÖ³ª?
+	//  Ø´         Æ®        ÔµÇ¾   Ö³ ?
 	map<Pos, bool> added;
-	// ¾î¶² Á¤Á¡ÀÌ ´©±¸¿¡ ÀÇÇØ ¿¬°á µÇ¾ú´ÂÁö
+	//  î¶²                          Ç¾     
 	map<Pos, Pos> parent;
-	// ¸¸µé°í ÀÖ´Â Æ®¸®¿¡ ÀÎÁ¢ÇÑ °£¼± Áß, ÇØ´ç Á¤Á¡¿¡ ´ê´Â ÃÖ¼Ò °£¼±ÀÇ Á¤º¸
+	//        Ö´  Æ®                   ,  Ø´              Ö¼             
 	map<Pos, int32> best;
 
-	// ´ÙÀÍ½ºÆ®¶ó¿Í ¸Å¿ì À¯»ç! ´Ü!
-	// - ´ÙÀÍ½ºÆ®¶ó´Â best°¡ [½ÃÀÛÁ¡]À» ±âÁØÀ¸·Î ÇÑ cost
-	// - ÇÁ¸²¿¡¼­´Â best°¡ [Æ®¸®]¸¦ ±âÁØÀ¸·Î ÇÑ cost
+	//    Í½ Æ®     Å¿      !   !
+	// -    Í½ Æ®    best   [      ]               cost
+	// -            best   [Æ®  ]               cost
 
 	for (int32 y = 0; y < _size; y++)
 	{
@@ -253,30 +253,30 @@ void Board::GenerateMapByPrim()
 		CostEdge bestEdge = pq.top();
 		pq.pop();
 
-		// »õ·Î ¿¬°áµÈ Á¤Á¡
+		//                
 		Pos v = bestEdge.vtx;
-		// ÀÌ¹Ì ¿¬°áµÇ¾ú´Ù¸é ½ºÅµ
+		//  Ì¹      Ç¾  Ù¸    Åµ
 		if (added[v])
 			continue;
 
-		// »õ·Î ¿ÔÀ¸¸é ¹æ¹®
+		//              æ¹®
 		added[v] = true;
 
-		// ¸Ê¿¡ Àû¿ë
+		//  Ê¿      
 		{
 			int y = (parent[v].y + v.y) / 2;
 			int x = (parent[v].x + v.x) / 2;
 			_tile[y][x] = TileType::EMPTY;
 		}
 
-		// ¹æ±İ Ãß°¡ÇÑ Á¤Á¡¿¡ ÀÎÁ¢ÇÑ °£¼±µéÀ» °Ë»çÇÑ´Ù
+		//      ß°                            Ë»  Ñ´ 
 		for (CostEdge& edge : edges[v])
 		{
-			// ÀÌ¹Ì Ãß°¡ µÇ¾úÀ¸¸é ½ºÅµ
+			//  Ì¹   ß°   Ç¾        Åµ
 			if (added[edge.vtx])
 				continue;
 
-			// ´Ù¸¥ °æ·Î·Î ´õ ÁÁÀº ÈÄº¸°¡ ¹ß°ß µÇ¾úÀ¸¸é ½ºÅµ
+			//  Ù¸    Î·           Äº     ß°   Ç¾        Åµ
 			if (edge.cost > best[edge.vtx])
 				continue;
 
