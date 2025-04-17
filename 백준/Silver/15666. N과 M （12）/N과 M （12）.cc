@@ -72,11 +72,6 @@ void solve()
 
 			SetOrim(indexes);
 
-			//if (indexes[i + 1] > indexes[i])
-			//{
-			//	indexes[i] = indexes[i + 1];
-			//}
-
 		}
 
 		if (flag) break;
