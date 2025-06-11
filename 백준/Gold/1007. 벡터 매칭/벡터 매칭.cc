@@ -6,11 +6,11 @@ int t, n;
 vector<pair<int, int>> points;
 double answer;
 
-void dfs(int idx, int cnt, int sx, int sy, vector<int>& selected) {
+void dfs(int idx, int cnt, vector<int>& seleted) {
     if (cnt == n / 2) {
         int tx = 0, ty = 0;
         for (int i = 0; i < n; ++i) {
-            if (selected[i]) {
+            if (seleted[i]) {
                 tx += points[i].first;
                 ty += points[i].second;
             } else {
@@ -18,17 +18,19 @@ void dfs(int idx, int cnt, int sx, int sy, vector<int>& selected) {
                 ty -= points[i].second;
             }
         }
-        double len = sqrt(1.0 * tx * tx + 1.0 * ty * ty);
+        double len = sqrt(static_cast<double>(tx) * tx + static_cast<double>(ty) * ty);
         answer = min(answer, len);
         return;
     }
-    if (idx == n) return;
-    // 선택
-    selected[idx] = 1;
-    dfs(idx + 1, cnt + 1, sx + points[idx].first, sy + points[idx].second, selected);
-    selected[idx] = 0;
-    // 미선택
-    dfs(idx + 1, cnt, sx, sy, selected);
+    if (idx == n)
+        return;
+
+    // seleted
+    seleted[idx] = 1;
+    dfs(idx + 1, cnt + 1, seleted);
+    seleted[idx] = 0;
+    // deselected
+    dfs(idx + 1, cnt, seleted);
 }
 
 void solve()
@@ -46,7 +48,7 @@ void solve()
         vector<int> selected(n, 0);
         // 첫 번째 점은 항상 선택(중복 방지, 대칭 제거)
         selected[0] = 1;
-        dfs(1, 1, points[0].first, points[0].second, selected);
+        dfs(1, 1, selected);
         cout << fixed << setprecision(12) << answer << '\n';
     }
 }
