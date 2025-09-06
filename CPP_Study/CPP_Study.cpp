@@ -8,9 +8,9 @@ using namespace std;
 #include "BinarySearchTree.h"
 #include <thread>
 
-// ÀÌÁø Å½»ö Æ®¸®
+// ì´ì§„ íƒìƒ‰ íŠ¸ë¦¬
 
-// ÀÌÁø Å½»ö (binary search)
+// ì´ì§„ íƒìƒ‰ (binary search)
 
 int main()
 {
@@ -25,40 +25,16 @@ int main()
 	{
 		bst.Insert(rand() % 100);
 		bst.Print();
-		this_thread::sleep_for(1s);
+        // 1s ëŒ€ì‹  std::chrono::seconds(1)ë¡œ ë³€ê²½
+        this_thread::sleep_for(std::chrono::seconds(1));
 	}
 
 	bst.Insert(10);
 	bst.Print();
-	this_thread::sleep_for(1s);
+	this_thread::sleep_for(std::chrono::seconds(1));
 
 	bst.Insert(20);
 	bst.Print();
-	this_thread::sleep_for(1s);
-
-	bst.Insert(25);
-	bst.Print();
-	this_thread::sleep_for(1s);
-
-	bst.Insert(40);
-	bst.Print();
-	this_thread::sleep_for(1s);
-
-	bst.Delete(50);
-	bst.Print();
-	this_thread::sleep_for(1s);
-
-	bst.Delete(10);
-	bst.Print();
-	this_thread::sleep_for(1s);
-
-	bst.Delete(20);
-	bst.Print();
-	this_thread::sleep_for(1s);
-
-	bst.Delete(25);
-	bst.Print();
-	this_thread::sleep_for(1s);
-
+	this_thread::sleep_for(std::chrono::seconds(1));
 
 }
