@@ -4,8 +4,7 @@ using namespace std;
 
 int n;
 vector<int> cnt(26);
-bool flag = false;
-
+string ret = "";
 void solve()
 {
 	cin >> n;
@@ -20,13 +19,15 @@ void solve()
 	{
 		if (cnt[i] >= 5)
 		{
-			flag = true;
-			cout << char('a' + i);
+			ret += i + 'a';
 		}
 	}
 
-	if (flag == false)
+	if (ret.size())
+		cout << ret;
+	else
 		cout << "PREDAJA";
+
 }
 
 int main()
