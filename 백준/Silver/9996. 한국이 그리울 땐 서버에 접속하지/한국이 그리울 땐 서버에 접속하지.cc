@@ -9,20 +9,20 @@ void solve()
 {
 	cin >> n >> str;
 	int idx = str.find('*');
-	string sub1 = str.substr(0, idx);
-	string sub2 = str.substr(idx + 1);
-	string temp;
+	string pre = str.substr(0, idx);
+	string suf = str.substr(idx + 1);
+	string s;
 	for (int i = 0; i < n; i++)
 	{
-		cin >> temp;
-		if (temp.size() < (sub1.size() + sub2.size()))
+		cin >> s;
+		if (s.size() < (pre.size() + suf.size()))
 		{
 			cout << "NE" << '\n';
 			continue;
 		}
-		string tempSub1 = temp.substr(0, sub1.size());
-		string tempSub2 = temp.substr(temp.size() - sub2.size());
-		if (sub1 == tempSub1 && sub2 == tempSub2)
+		string s_pre = s.substr(0, pre.size());
+		string s_suf = s.substr(s.size() - suf.size());
+		if (pre == s_pre && suf == s_suf)
 			cout << "DA" << '\n';
 		else
 			cout << "NE" << '\n';
