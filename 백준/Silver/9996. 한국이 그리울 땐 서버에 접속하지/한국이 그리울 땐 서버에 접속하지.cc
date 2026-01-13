@@ -1,59 +1,28 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-vector<string> split(const string& input, string delimiter)
-{
-	vector<string> result;
-	int start = 0;
-	int end = input.find(delimiter);
-	while (end != string::npos)
-	{
-		result.push_back(input.substr(start, end - start));
-		start = end + delimiter.size();
-		end = input.find(delimiter, start);
-	}
-	result.push_back(input.substr(start));
-
-	return result;
-}
+int n;
+string str;
 
 void solve()
 {
-	int n;
-	cin >> n;
-	string s;
-	cin >> s;
-	vector<string> ch = split(s, "*");
-	int size1 = ch[0].size();
-	int size2 = ch[1].size();
-
-	for (int i = 0; i < n; ++i)
+	cin >> n >> str;
+	int idx = str.find('*');
+	string sub1 = str.substr(0, idx);
+	string sub2 = str.substr(idx + 1);
+	string temp;
+	for (int i = 0; i < n; i++)
 	{
-		string str;
-		cin >> str;
-
-		int size = str.size();
-		if (size < (size1 + size2))
+		cin >> temp;
+		if (temp.size() < (sub1.size() + sub2.size()))
 		{
 			cout << "NE" << '\n';
 			continue;
 		}
-
-		string substr1 = str.substr(0, size1);
-		string substr2 = str.substr(size - size2);
-
-		if (substr1 == ch[0] && substr2 == ch[1])
+		string tempSub1 = temp.substr(0, sub1.size());
+		string tempSub2 = temp.substr(temp.size() - sub2.size());
+		if (sub1 == tempSub1 && sub2 == tempSub2)
 			cout << "DA" << '\n';
 		else
 			cout << "NE" << '\n';
