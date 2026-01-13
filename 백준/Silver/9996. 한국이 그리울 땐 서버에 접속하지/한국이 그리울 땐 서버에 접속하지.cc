@@ -20,9 +20,8 @@ void solve()
 			cout << "NE" << '\n';
 			continue;
 		}
-		string s_pre = s.substr(0, pre.size());
-		string s_suf = s.substr(s.size() - suf.size());
-		if (pre == s_pre && suf == s_suf)
+
+		if (pre == s.substr(0, pre.size()) && suf == s.substr(s.size() - suf.size()))
 			cout << "DA" << '\n';
 		else
 			cout << "NE" << '\n';
