@@ -3,9 +3,9 @@
 using namespace std;
 
 int n, m;
-unordered_map<int, string> um;
+string a[100004];
 unordered_map<string, int> um2;
-string temp;
+string s;
 
 bool isNumber(string s)
 {
@@ -21,25 +21,22 @@ void solve()
 	cin >> n >> m;
 	for (int i = 1; i <= n; i++)
 	{
-		cin >> temp;
-		um[i] = temp;
-		um2[temp] = i;
+		cin >> s;
+		a[i] = s;
+		um2[s] = i;
 	}
 	for (int i = 0; i < m; i++)
 	{
-		cin >> temp;
-		// temp가 숫자인지 확인
-		bool flag = isNumber(temp);
-		// 숫자면 숫자로 전환
+		cin >> s;
+		bool flag = isNumber(s);
 		if (flag)
 		{
-			int idx = stoi(temp);
-			cout << um[idx] << '\n';
+			int idx = stoi(s);
+			cout << a[idx] << '\n';
 		}
 		else
 		{
-			// 숫자가 아니면 um2 사용
-			cout << um2[temp] << '\n';
+			cout << um2[s] << '\n';
 		}
 	}
 }
