@@ -19,10 +19,9 @@ void solve()
 			m[type]++;
 		}
 
-		// m 전체 순회하기
-		for (const auto& [key, value] : m)
+		for (auto it = m.begin(); it != m.end(); it++)
 		{
-			ret *= (value + 1);
+			ret *= (it->second + 1);
 		}
 
 		cout << ret - 1 << '\n';
