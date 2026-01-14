@@ -1,47 +1,43 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-
+#include <bits/stdc++.h>
 using namespace std;
+
+int n, k;
+vector<int> v;
 
 void solve()
 {
-	int n, k;
 	cin >> n >> k;
-
-	vector<int> seq(n);
-
+	v = vector<int>(n);
 	for (int i = 0; i < n; i++)
-		cin >> seq[i];
-
-	int res = 0;
-	for (int i = 0; i < k; ++i)
-		res += seq[i];
-
-	int maxTemp = res;
-	for (int i = k; i < n; ++i)
 	{
-		res -= seq[i - k];
-		res += seq[i];
-
-		if (res > maxTemp)
-			maxTemp = res;
+		cin >> v[i];
 	}
 
-	cout << maxTemp;
+	int sum = 0, mx = 0;
+	for (int i = 0; i < k; i++)
+	{
+		sum += v[i];
+	}
+	mx = sum;
+
+	for (int i = k; i < n; i++)
+	{
+		sum += v[i];
+		sum -= v[i - k];
+		mx = max(mx, sum);
+	}
+
+	cout << mx;
 }
 
-int main() 
+int main()
 {
+	FILE* stream;
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
-	//freopen("input.txt", "rt", stdin);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();
 
