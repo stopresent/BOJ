@@ -2,33 +2,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, k;
-vector<int> v;
+int n, k, temp, ret = -1000000;
+int psum[100001];
 
 void solve()
 {
 	cin >> n >> k;
-	v = vector<int>(n);
-	for (int i = 0; i < n; i++)
+	for (int i = 1; i <= n; i++)
 	{
-		cin >> v[i];
+		cin >> temp;
+		psum[i] = psum[i - 1] + temp;
+	}
+	for (int i = k; i <= n; i++)
+	{
+		ret = max(ret, psum[i] - psum[i - k]);
 	}
 
-	int sum = 0, mx = 0;
-	for (int i = 0; i < k; i++)
-	{
-		sum += v[i];
-	}
-	mx = sum;
-
-	for (int i = k; i < n; i++)
-	{
-		sum += v[i];
-		sum -= v[i - k];
-		mx = max(mx, sum);
-	}
-
-	cout << mx;
+	cout << ret;
 }
 
 int main()
