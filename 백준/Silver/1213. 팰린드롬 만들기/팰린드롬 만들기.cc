@@ -14,14 +14,13 @@ void solve()
 	{
 		if (cnt[i])
 		{
-			if (cnt[i] & 1) // 중간값
+			if (cnt[i] & 1)
 			{
-				mid = char(i);
 				flag++;
+				mid = char(i);
 				cnt[i]--;
 			}
-			if (flag == 2)
-				break;
+			if (flag == 2) break;
 			for (int j = 0; j < cnt[i]; j += 2)
 			{
 				ret = char(i) + ret;
