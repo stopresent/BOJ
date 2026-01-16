@@ -3,56 +3,9 @@
 using namespace std;
 
 string s;
-char c[] = { 'a', 'e', 'i', 'o', 'u' };
-
-bool check1(string s)
+bool isVowel(int idx)
 {
-	for (int i = 0; i < s.size(); i++)
-	{
-		for (int j = 0; j < 5; j++)
-		{
-			if (s[i] == c[j])
-				return true;
-		}
-	}
-
-	return false;
-}
-
-bool check2(string s)
-{
-	for (int i = 0; i + 2 < s.size(); i++)
-	{
-		int cnt = 0;
-		for (int j = i; j < i + 3; j++)
-		{
-			for (int k = 0; k < 5; k++)
-			{
-				if (c[k] == s[j])
-					cnt++;
-			}
-		}
-
-		if (cnt == 0 || cnt == 3)
-			return false;
-	}
-
-	return true;
-}
-
-bool check3(string s)
-{
-	for (int i = 0; i + 1 < s.size(); i++)
-	{
-		if (s[i] == s[i + 1])
-		{
-			if (s[i] == 'e' || s[i] == 'o')
-				continue;
-			return false;
-		}
-	}
-
-	return true;
+	return (idx == 'a' || idx == 'e' || idx == 'i' || idx == 'o' || idx == 'u');
 }
 
 void solve()
@@ -60,12 +13,35 @@ void solve()
 	while (true)
 	{
 		cin >> s;
-		if (s == "end")
-			break;
-		if (check1(s) && check2(s) && check3(s))
-			cout << "<" << s << "> is acceptable." << '\n';
+		if (s == "end") break;
+		int lcnt = 0, vcnt = 0;
+		bool flag = false, is_inclusive_v = false;
+		int prev = -1;
+		for (int i = 0; i < s.size(); i++)
+		{
+			int idx = s[i];
+			if (isVowel(idx))
+			{
+				vcnt++;
+				lcnt = 0;
+				is_inclusive_v = true;
+			}
+			else
+			{
+				lcnt++;
+				vcnt = 0;
+			}
+			if (vcnt == 3 || lcnt == 3) flag = true;
+			if (i >= 1 && (prev == idx) && (idx != 'e' && idx != 'o'))
+				flag = true;
+			prev = idx;
+		}
+		if (is_inclusive_v == false)
+			flag = true;
+		if (flag)
+			cout << "<" << s << "> is not acceptable.\n";
 		else
-			cout << "<" << s << "> is not acceptable." << '\n';
+			cout << "<" << s << "> is acceptable.\n";
 	}
 }
 
