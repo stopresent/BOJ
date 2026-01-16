@@ -1,110 +1,71 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-char consonant[] = { 'a', 'e', 'i', 'o', 'u' };
+string s;
+char c[] = { 'a', 'e', 'i', 'o', 'u' };
 
-bool IsConsonant(char c)
+bool check1(string s)
 {
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < s.size(); i++)
 	{
-		if (consonant[i] == c)
-			return true;
+		for (int j = 0; j < 5; j++)
+		{
+			if (s[i] == c[j])
+				return true;
+		}
 	}
 
 	return false;
 }
 
+bool check2(string s)
+{
+	for (int i = 0; i + 2 < s.size(); i++)
+	{
+		int cnt = 0;
+		for (int j = i; j < i + 3; j++)
+		{
+			for (int k = 0; k < 5; k++)
+			{
+				if (c[k] == s[j])
+					cnt++;
+			}
+		}
+
+		if (cnt == 0 || cnt == 3)
+			return false;
+	}
+
+	return true;
+}
+
+bool check3(string s)
+{
+	for (int i = 0; i + 1 < s.size(); i++)
+	{
+		if (s[i] == s[i + 1])
+		{
+			if (s[i] == 'e' || s[i] == 'o')
+				continue;
+			return false;
+		}
+	}
+
+	return true;
+}
+
 void solve()
 {
-	string str;
 	while (true)
 	{
-		cin >> str;
-		if (str == "end")
+		cin >> s;
+		if (s == "end")
 			break;
-
-		bool flag1 = false, flag2 = false, flag3 = false;
-
-		// 모음이 하나라도 포함되는지 확인.
-		for (int i = 0; i < str.size(); ++i)
-		{
-			if (flag1)
-				break;
-
-			for (int j = 0; j < 5; ++j)
-			{
-				if (IsConsonant(str[i]))
-				{
-					flag1 = true;
-					break;
-				}
-			}
-		}
-
-		if (flag1 == false)
-		{
-			cout << "<" << str << "> is not acceptable." << '\n';
-			continue;
-		}
-
-		// 연속된 자음 및 모음 확인
-		if (str.size() >= 3)
-		{
-			for (int i = 0; i < str.size() - 2; ++i)
-			{
-				if (IsConsonant(str[i]) && IsConsonant(str[i + 1]) && IsConsonant(str[i + 2]))
-				{
-					flag2 = true;
-					break;
-				}
-				else if (!IsConsonant(str[i]) && !IsConsonant(str[i + 1]) && !IsConsonant(str[i + 2]))
-				{
-					flag2 = true;
-					break;
-				}
-			}
-		}
-
-		if (flag2 == true)
-		{
-			cout << "<" << str << "> is not acceptable." << '\n';
-			continue;
-		}
-
-		// 같은 글자가 연속적으로 나오는지 확인.
-		if (str.size() >= 2)
-		{
-			for (int i = 0; i < str.size() - 1; ++i)
-			{
-				if (str[i] == 'e' || str[i] == 'o')
-					continue;
-				if (str[i] == str[i + 1])
-				{
-					flag3 = true;
-					break;
-				}
-			}
-		}
-
-		if (flag3 == true)
-		{
-			cout << "<" << str << "> is not acceptable." << '\n';
-			continue;
-		}
-
-		cout << "<" << str << "> is acceptable." << '\n';
-
+		if (check1(s) && check2(s) && check3(s))
+			cout << "<" << s << "> is acceptable." << '\n';
+		else
+			cout << "<" << s << "> is not acceptable." << '\n';
 	}
 }
 
