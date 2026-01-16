@@ -3,14 +3,14 @@
 using namespace std;
 
 int n, c, temp;
+map<int, int> m, m_first;
 vector<pair<int, int>> v;
-map<int, int> m, m_first; // m : 숫자, 개수 m_first : 숫자, 처음 나온 인덱스
 
 bool cmp(pair<int, int> a, pair<int, int> b)
 {
-	if (a.first == b.first) // 빈도가 같다면
-		return m_first[a.second] < m_first[b.second]; // 먼저 만난순
-	return a.first > b.first; // 빈도가 높은순으로 정렬
+	if (a.first == b.first) // 빈도가 같을 경우
+		return m_first[a.second] < m_first[b.second];
+	return a.first > b.first;
 }
 
 void solve()
@@ -23,10 +23,8 @@ void solve()
 		if (m_first[temp] == 0)
 			m_first[temp] = i + 1;
 	}
-
-	for (auto it : m)
-		v.push_back({ it.second, it.first }); // 빈도, 숫자
-
+	for (auto i : m)
+		v.push_back({ i.second, i.first });
 	sort(v.begin(), v.end(), cmp);
 	for (auto i : v)
 	{
