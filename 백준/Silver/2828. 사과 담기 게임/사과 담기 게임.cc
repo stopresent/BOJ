@@ -2,34 +2,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m, j, pos, mn_window = 1, mx_window, move_cnt;
+int n, m, j, pos, l = 1, r, ret;
 
 void solve()
 {
 	cin >> n >> m >> j;
-	mx_window = m;
+	r = m;
 	for (int i = 0; i < j; i++)
 	{
+		r = l + m - 1;
 		cin >> pos;
-		if (mn_window >= pos && mx_window <= pos)
+		if (l >= pos && r <= pos)
 			continue;
-		else if (pos < mn_window)
+		else if (pos < l)
 		{
-			int dist = mn_window - pos;
-			move_cnt += dist;
-			mn_window -= dist;
-			mx_window -= dist;
+			ret += l - pos;
+			l = pos;
 		}
-		else if (pos > mx_window)
+		else if (pos > r)
 		{
-			int dist = pos - mx_window;
-			move_cnt += dist;
-			mn_window += dist;
-			mx_window += dist;
+			ret += pos - r;
+			l = pos - m + 1;
 		}
 	}
 
-	cout << move_cnt;
+	cout << ret;
 }
 
 int main()
