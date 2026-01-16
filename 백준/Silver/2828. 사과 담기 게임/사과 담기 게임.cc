@@ -1,52 +1,35 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int N, M, J;
+int n, m, j, pos, mn_window = 1, mx_window, move_cnt;
 
 void solve()
 {
-	cin >> N >> M >> J;
-	pair<int, int> cur{1, M};
-	int ret = 0;
-
-	for (int i = 0; i < J; ++i)
+	cin >> n >> m >> j;
+	mx_window = m;
+	for (int i = 0; i < j; i++)
 	{
-		int pos;
 		cin >> pos;
-		
-		if (pos <= cur.second && pos >= cur.first)
-		{
+		if (mn_window >= pos && mx_window <= pos)
 			continue;
-		}
-		else if (pos < cur.first)
+		else if (pos < mn_window)
 		{
-			int temp = cur.first - pos;
-			ret += temp;
-			cur.first -= temp;
-			cur.second -= temp;
+			int dist = mn_window - pos;
+			move_cnt += dist;
+			mn_window -= dist;
+			mx_window -= dist;
 		}
-		else if (pos > cur.second)
+		else if (pos > mx_window)
 		{
-			int temp = pos - cur.second;
-			ret += temp;
-			cur.first += temp;
-			cur.second += temp;
+			int dist = pos - mx_window;
+			move_cnt += dist;
+			mn_window += dist;
+			mx_window += dist;
 		}
 	}
 
-	cout << ret;
-
+	cout << move_cnt;
 }
 
 int main()
