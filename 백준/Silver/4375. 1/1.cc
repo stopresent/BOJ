@@ -1,33 +1,29 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
+
+int n, ret;
+int check(int n)
+{
+	long long check = 1;
+	int ret = 1;
+	while (true)
+	{
+		if (check % n == 0)
+		{
+			return ret;
+		}
+		check %= n;
+		check = 10 * check + 1;
+		ret++;
+	}
+}
 
 void solve()
 {
-	int n;
 	while (cin >> n)
 	{
-		int ret = 0;
-		for (int i = 1; i <= n; ++i)
-		{
-			ret = ret * 10 + 1;
-			ret %= n;
-			if (ret == 0)
-			{
-				cout << i << '\n';
-				break;
-			}
-		}
+		cout << check(n) << '\n';
 	}
 }
 

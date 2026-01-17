@@ -1,52 +1,32 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int N, M, J;
+int n, m, j, pos, l = 1, r, ret;
 
 void solve()
 {
-	cin >> N >> M >> J;
-	pair<int, int> cur{1, M};
-	int ret = 0;
-
-	for (int i = 0; i < J; ++i)
+	cin >> n >> m >> j;
+	r = m;
+	for (int i = 0; i < j; i++)
 	{
-		int pos;
+		r = l + m - 1;
 		cin >> pos;
-		
-		if (pos <= cur.second && pos >= cur.first)
-		{
+		if (l >= pos && r <= pos)
 			continue;
-		}
-		else if (pos < cur.first)
+		else if (pos < l)
 		{
-			int temp = cur.first - pos;
-			ret += temp;
-			cur.first -= temp;
-			cur.second -= temp;
+			ret += l - pos;
+			l = pos;
 		}
-		else if (pos > cur.second)
+		else if (pos > r)
 		{
-			int temp = pos - cur.second;
-			ret += temp;
-			cur.first += temp;
-			cur.second += temp;
+			ret += pos - r;
+			l = pos - m + 1;
 		}
 	}
 
 	cout << ret;
-
 }
 
 int main()

@@ -1,33 +1,20 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-vector<int> v(30);
+int a[26];
+string str;
 
 void solve()
 {
-	string str;
 	cin >> str;
-
-	for (int i = 0; i < str.size(); ++i)
+	for (int i = 0; i < str.size(); i++)
 	{
-		v[str[i] - 'a']++;
+		a[str[i] - 'a']++;
 	}
 
-	for (int i = 0; i < 26; ++i)
-	{
-		cout << v[i] << " ";
-	}
+	for (int i = 0; i < 26; i++)
+		cout << a[i] << ' ';
 }
 
 int main()

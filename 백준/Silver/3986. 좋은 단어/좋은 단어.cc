@@ -1,35 +1,37 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-#include <stack>
-
+#include <bits/stdc++.h>
 using namespace std;
+
+int n, ret;
+string s;
 
 void solve()
 {
-	int n, ret = 0;
 	cin >> n;
-	string s;
-	for (int i = 0; i < n; ++i)
+	while (n--)
 	{
 		cin >> s;
-		stack<char> stk;
-		for (char a : s)
-			if (stk.size() && stk.top() == a) stk.pop();
-			else stk.push(a);
+		stack<char> st;
+		for (int i = 0; i < s.size(); i++)
+		{
+			st.push(s[i]);
+			while (st.size() > 1)
+			{
+				char t = st.top();
+				st.pop();
+				if (st.top() == t)
+					st.pop();
+				else
+				{
+					st.push(t);
+					break;
+				}
+			}
+		}
 
-		if (stk.size() == 0)
-			ret++;
+		if (st.size() == 0) ret++;
 	}
-
+	
 	cout << ret;
 }
 

@@ -1,110 +1,47 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-char consonant[] = { 'a', 'e', 'i', 'o', 'u' };
-
-bool IsConsonant(char c)
+string s;
+bool isVowel(int idx)
 {
-	for (int i = 0; i < 5; ++i)
-	{
-		if (consonant[i] == c)
-			return true;
-	}
-
-	return false;
+	return (idx == 'a' || idx == 'e' || idx == 'i' || idx == 'o' || idx == 'u');
 }
 
 void solve()
 {
-	string str;
 	while (true)
 	{
-		cin >> str;
-		if (str == "end")
-			break;
-
-		bool flag1 = false, flag2 = false, flag3 = false;
-
-		// 모음이 하나라도 포함되는지 확인.
-		for (int i = 0; i < str.size(); ++i)
+		cin >> s;
+		if (s == "end") break;
+		int lcnt = 0, vcnt = 0;
+		bool flag = false, is_inclusive_v = false;
+		int prev = -1;
+		for (int i = 0; i < s.size(); i++)
 		{
-			if (flag1)
-				break;
-
-			for (int j = 0; j < 5; ++j)
+			int idx = s[i];
+			if (isVowel(idx))
 			{
-				if (IsConsonant(str[i]))
-				{
-					flag1 = true;
-					break;
-				}
+				vcnt++;
+				lcnt = 0;
+				is_inclusive_v = true;
 			}
-		}
-
-		if (flag1 == false)
-		{
-			cout << "<" << str << "> is not acceptable." << '\n';
-			continue;
-		}
-
-		// 연속된 자음 및 모음 확인
-		if (str.size() >= 3)
-		{
-			for (int i = 0; i < str.size() - 2; ++i)
+			else
 			{
-				if (IsConsonant(str[i]) && IsConsonant(str[i + 1]) && IsConsonant(str[i + 2]))
-				{
-					flag2 = true;
-					break;
-				}
-				else if (!IsConsonant(str[i]) && !IsConsonant(str[i + 1]) && !IsConsonant(str[i + 2]))
-				{
-					flag2 = true;
-					break;
-				}
+				lcnt++;
+				vcnt = 0;
 			}
+			if (vcnt == 3 || lcnt == 3) flag = true;
+			if (i >= 1 && (prev == idx) && (idx != 'e' && idx != 'o'))
+				flag = true;
+			prev = idx;
 		}
-
-		if (flag2 == true)
-		{
-			cout << "<" << str << "> is not acceptable." << '\n';
-			continue;
-		}
-
-		// 같은 글자가 연속적으로 나오는지 확인.
-		if (str.size() >= 2)
-		{
-			for (int i = 0; i < str.size() - 1; ++i)
-			{
-				if (str[i] == 'e' || str[i] == 'o')
-					continue;
-				if (str[i] == str[i + 1])
-				{
-					flag3 = true;
-					break;
-				}
-			}
-		}
-
-		if (flag3 == true)
-		{
-			cout << "<" << str << "> is not acceptable." << '\n';
-			continue;
-		}
-
-		cout << "<" << str << "> is acceptable." << '\n';
-
+		if (is_inclusive_v == false)
+			flag = true;
+		if (flag)
+			cout << "<" << s << "> is not acceptable.\n";
+		else
+			cout << "<" << s << "> is acceptable.\n";
 	}
 }
 

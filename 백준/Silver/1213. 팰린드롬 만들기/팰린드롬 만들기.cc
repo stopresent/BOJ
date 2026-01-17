@@ -1,92 +1,48 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <stack>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-// 단어가 모두 짝수개이면 팰린드롬 가능
-// 하나만 홀수개여도 가능
-
-string str;
-string impos = "I'm Sorry Hansoo";
-int cache[30], checkCnt = 0, odd;
+string s, ret;
+int cnt[200], flag;
+char mid;
 
 void solve()
 {
-	cin >> str;
-
-	for (int i = 0; i < str.size(); ++i)
+	cin >> s;
+	for (char c : s) cnt[c]++;
+	for (int i = 'Z'; i >= 'A'; i--)
 	{
-		cache[str[i] - 'A']++;
-	}
-
-	// 팰린드롬 가능 여부 체크
-	for (int i = 0; i < 30; ++i)
-	{
-		if (cache[i] % 2 != 0)
+		if (cnt[i])
 		{
-			odd = i;
-			checkCnt++;
-		}
-		if (checkCnt >= 2)
-		{
-			cout << impos;
-			return;
-		}
-	}
-
-	stack<char> s;
-	char oddChar = odd + 'A';
-	// 팰린드롬으로 만들기
-	if (checkCnt == 0) // 짝수개만 있을 때
-	{
-		for (int i = 0; i < 30; ++i)
-		{
-			for (int j = 0; j < cache[i] / 2; ++j)
+			if (cnt[i] & 1)
 			{
-				cout << (char)(i + 'A');
-				s.push(i + 'A');
+				flag++;
+				mid = char(i);
+				cnt[i]--;
+			}
+			if (flag == 2) break;
+			for (int j = 0; j < cnt[i]; j += 2)
+			{
+				ret = char(i) + ret;
+				ret += char(i);
 			}
 		}
-
-		while (s.empty() == false)
-		{
-			cout << s.top();
-			s.pop();
-		}
 	}
-	else // 홀수가 하나 있을 때
-	{
-		for (int i = 0; i < 30; ++i)
-		{
-			for (int j = 0; j < cache[i] / 2; ++j)
-			{
-				cout << (char)(i + 'A');
-				s.push(i + 'A');
-			}
-		}
-		cout << oddChar;
-		while (s.empty() == false)
-		{
-			cout << s.top();
-			s.pop();
-		}
-	}
+	if (mid)
+		ret.insert(ret.begin() + ret.size() / 2, mid);
+	if (flag == 2)
+		cout << "I'm Sorry Hansoo" << '\n';
+	else
+		cout << ret << '\n';
 }
 
-int main() 
+int main()
 {
+	FILE* stream;
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
-	//freopen("input.txt", "rt", stdin);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();
 

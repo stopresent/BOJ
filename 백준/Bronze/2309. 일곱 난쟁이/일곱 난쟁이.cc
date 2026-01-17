@@ -1,40 +1,26 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-// 일곱 난쟁이
-// 순열 방법
+vector<int> v(9);
 
 void solve()
 {
-	int arr[9];
 	for (int i = 0; i < 9; ++i)
 	{
-		cin >> arr[i];
+		cin >> v[i];
 	}
-	sort(arr, arr + 9);
+	sort(v.begin(), v.end());
 	do
 	{
 		int sum = 0;
-		for (int i = 0; i < 7; ++i)
-			sum += arr[i];
-		if (sum == 100)
-			break;
-	} while (next_permutation(arr, arr + 9));
+		for (int i = 0; i < 7; i++)
+			sum += v[i];
+		if (sum == 100) break;
+	} while (next_permutation(v.begin(), v.begin() + 9));
 
-	for (int i = 0; i < 7; ++i)
-		cout << arr[i] << '\n';
-
+	for (int i = 0; i < 7; i++)
+		cout << v[i] << '\n';
 }
 
 int main()

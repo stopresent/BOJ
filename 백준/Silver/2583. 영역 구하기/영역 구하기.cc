@@ -1,82 +1,71 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int n, m, k;
-vector<vector<int>> board;
+int n, m, k, ny, nx, cnt;
+int dy[] = { -1, 0, 1, 0 };
+int dx[] = { 0, 1, 0, -1 };
+vector<vector<int>> v;
 vector<vector<int>> visited;
-vector<int> ans;
-int dy[] = { 0, 1, 0, -1 };
-int dx[] = { 1, 0, -1, 0 };
 
-int area = 0;
-void dfs(int y, int x)
+int BFS(int y, int x)
 {
-	area++;
+	int ret = 1;
+	queue<pair<int, int>> q;
 	visited[y][x] = 1;
-
-	for (int i = 0; i < 4; ++i)
+	q.push({y, x});
+	while (q.size())
 	{
-		int ny = y + dy[i];
-		int nx = x + dx[i];
-		if (ny < 0 || ny >= n || nx < 0 || nx >= m)
-			continue;
-		if (visited[ny][nx])
-			continue;
-		if (board[ny][nx] != 0)
-			continue;
-
-		dfs(ny, nx);
+		pair<int, int> f = q.front();
+		q.pop();
+		for (int i = 0; i < 4; i++)
+		{
+			ny = f.first + dy[i];
+			nx = f.second + dx[i];
+			if (ny < 0 || ny >= n || nx < 0 || nx >= m) continue;
+			if (visited[ny][nx] || v[ny][nx] == 1) continue;
+			visited[ny][nx] = visited[f.first][f.second] + 1;
+			q.push({ ny, nx });
+			ret++;
+		}
 	}
+	return ret;
 }
 
 void solve()
 {
 	cin >> n >> m >> k;
-	board = vector<vector<int>>(n, vector<int>(m));
-	visited = vector<vector<int>>(n, vector<int>(m));
-
-	int a, b, c, d;
-	for (int i = 0; i < k; ++i)
+	v = vector<vector<int>>(n, vector<int>(m, 0));
+	visited = vector<vector<int>>(n, vector<int>(m, 0));
+	int x_0, y_0, x_1, y_1;
+	for (int i = 0; i < k; i++)
 	{
-		cin >> a >> b >> c >> d;
-		for (int j = b; j < d; ++j)
+		cin >> x_0 >> y_0 >> x_1 >> y_1;
+		for (int y = y_0; y < y_1; y++)
 		{
-			for (int k = a; k < c; ++k)
+			for (int x = x_0; x < x_1; x++)
 			{
-				board[j][k] = 1;
+				v[y][x] = 1;
 			}
 		}
 	}
 
-	int cnt = 0;
-	for (int y = 0; y < n; ++y)
+	vector<int> ans;
+	for (int y = 0; y < n; y++)
 	{
-		for (int x = 0; x < m; ++x)
+		for (int x = 0; x < m; x++)
 		{
-			if (board[y][x] == 0 && visited[y][x] == 0)
+			if (v[y][x] == 0 && !visited[y][x])
 			{
+				ans.push_back(BFS(y, x));
 				cnt++;
-				area = 0;
-				dfs(y, x);
-				ans.push_back(area);
 			}
 		}
 	}
 
 	sort(ans.begin(), ans.end());
 	cout << cnt << '\n';
-	for (int i = 0; i < ans.size(); ++i)
+	for (int i = 0; i < ans.size(); i++)
 	{
 		cout << ans[i] << " ";
 	}

@@ -1,50 +1,29 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-#include <unordered_map>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int t, n;
+int T, n;
 
 void solve()
 {
-	cin >> t;
-	while (t-- > 0)
+	cin >> T;
+	while (T--)
 	{
 		cin >> n;
-
-		if (n == 0)
+		int ret = 1;
+		string clothes, type;
+		map<string, int> m;
+		for (int i = 0; i < n; i++)
 		{
-			cout << 0 << '\n';
-			continue;
-		}
-
-		string type, name;
-		unordered_map<string, int> m;
-		for (int i = 0; i < n; ++i)
-		{
-			cin >> name >> type;
+			cin >> clothes >> type;
 			m[type]++;
 		}
-		vector<int> ans(m.size());
-		auto it = m.begin();
-		int ret = 1;
-		for (int i = 0; i < ans.size(); ++i)
+
+		for (auto it = m.begin(); it != m.end(); it++)
 		{
 			ret *= (it->second + 1);
-			//cout << it->second << '\n';
-			it++;
 		}
-		//cout << endl;
+
 		cout << ret - 1 << '\n';
 	}
 }
