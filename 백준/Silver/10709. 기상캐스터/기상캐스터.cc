@@ -13,7 +13,6 @@ void solve() {
 		cin >> s;
 		for (int x = 0; x < w; x++) {
 			if (s[x] == '.') v[y][x] = -1;
-			else v[y][x] = 0;
 		}
 	}
 
