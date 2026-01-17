@@ -2,17 +2,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void solve()
-{
+void solve() {
 
 }
 
-int main()
-{
+int main() {
 	FILE* stream;
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();
