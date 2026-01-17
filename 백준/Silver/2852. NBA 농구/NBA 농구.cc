@@ -17,13 +17,9 @@ int time_to_sec(string s)
 
 string sec_to_time(int sec) {
 	string ret = "";
-	int a = sec / 60;
-	int b = sec % 60;
-	string sub1 = to_string(a);
-	string sub2 = to_string(b);
-	if (sub1.size() == 1) sub1 = "0" + sub1;
-	if (sub2.size() == 1) sub2 = "0" + sub2;
-	ret = sub1 + ":" + sub2;
+	string ss1 = "00" + to_string(sec / 60);
+	string ss2 = "00" + to_string(sec % 60);
+	ret = ss1.substr(ss1.size() - 2, 2) + ":" + ss2.substr(ss2.size() - 2, 2);
 	return ret;
 }
 
@@ -34,8 +30,7 @@ void solve() {
 		int time = time_to_sec(s);
 		if (score1 > score2) total1 += (time - curtime);
 		else if (score1 < score2) total2 += (time - curtime);
-		if (num == 1) score1++;
-		else score2++;
+		num == 1 ? score1++ : score2++;
 		curtime = time;
 	}
 	int time = time_to_sec("48:00");
