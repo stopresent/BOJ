@@ -1,85 +1,41 @@
 #define _CRT_SECURE_NO_WARNINGS
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include<iostream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 int h, w;
-vector<vector<char>> board;
-vector<vector<int>> ans;
+vector<vector<int>> v;
+string s;
 
-void solve()
-{
+void solve() {
 	cin >> h >> w;
-	board = vector<vector<char>>(h, vector<char>(w));
-	ans = vector<vector<int>>(h, vector<int>(w));
-
-	for (int y = 0; y < h; ++y)
-	{
-		for (int x = 0; x < w; ++x)
-		{
-			cin >> board[y][x];
+	v = vector<vector<int>>(h + 1, vector<int>(w + 1, 0));
+	for (int y = 0; y < h; y++) {
+		cin >> s;
+		for (int x = 0; x < w; x++) {
+			if (s[x] == '.') v[y][x] = -1;
+			else v[y][x] = 0;
 		}
 	}
 
-	for (int y = 0; y < h; ++y)
-	{
-		for (int x = 0; x < w; ++x)
-		{
-			if (board[y][x] == 'c')
-			{
-				ans[y][x] = 0;
-			}
-			else
-			{
-				int time = 0;
-				bool flag = false;
-				for (int i = x; i >= 0; --i)
-				{
-					if (board[y][i] == '.')
-					{
-						time++;
-					}
-					else if (board[y][i] == 'c')
-					{
-						flag = true;
-						break;
-					}
-				}
-
-				if (flag == false)
-				{
-					ans[y][x] = -1;
-				}
-				else
-				{
-					ans[y][x] = time;
+	for (int y = 0; y < h; y++) {
+		for (int x = 0; x < w; x++) {
+			if (v[y][x] == 0) {
+				int cnt = 1;
+				while (v[y][x + 1] == -1) {
+					v[y][x + 1] = cnt++;
+					x++;
 				}
 			}
 		}
 	}
 
-	for (int y = 0; y < h; ++y)
-	{
-		for (int x = 0; x < w; ++x)
-		{
-			cout << ans[y][x] << " ";
-		}
-
+	for (int y = 0; y < h; y++) {
+		for (int x = 0; x < w; x++) cout << v[y][x] << ' ';
 		cout << '\n';
 	}
 }
 
-int main()
-{
+int main() {
 	FILE* stream;
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
