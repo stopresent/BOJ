@@ -2,33 +2,39 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> v(9);
+vector<int> v;
 
-void solve()
-{
-	for (int i = 0; i < 9; ++i)
+void solve() {
+	int num, sum = 0;
+	for (int i = 0; i < 9; i++)
 	{
-		cin >> v[i];
+		cin >> num;
+		sum += num;
+		v.push_back(num);
 	}
-	sort(v.begin(), v.end());
-	do
-	{
-		int sum = 0;
-		for (int i = 0; i < 7; i++)
-			sum += v[i];
-		if (sum == 100) break;
-	} while (next_permutation(v.begin(), v.begin() + 9));
 
-	for (int i = 0; i < 7; i++)
-		cout << v[i] << '\n';
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = i + 1; j < 9; j++)
+		{
+			if (sum - v[i] - v[j] == 100)
+			{
+				//v.erase(v.begin() + j);
+				//v.erase(v.begin() + i);
+				v[i] = 1000;
+				v[j] = 1000;
+				sort(v.begin(), v.end());
+				for (int k = 0; k < 7; k++)
+					cout << v[k] << '\n';
+				return;
+			}
+		}
+	}
 }
 
-int main()
-{
+int main() {
 	FILE* stream;
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();
