@@ -13,21 +13,19 @@ void solve() {
 		v.push_back(num);
 	}
 
-	for (int i = 0; i < 9; i++)
+	sort(v.begin(), v.end());
+
+	do
 	{
-		for (int j = i + 1; j < 9; j++)
-		{
-			if (sum - v[i] - v[j] == 100)
-			{
-				v.erase(v.begin() + j);
-				v.erase(v.begin() + i);
-				sort(v.begin(), v.end());
-				for (int k = 0; k < 7; k++)
-					cout << v[k] << '\n';
-				return;
-			}
-		}
-	}
+		int sum = 0;
+		for (int i = 0; i < 7; i++)
+			sum += v[i];
+		if (sum == 100)
+			break;
+	} while (next_permutation(v.begin(), v.begin() + 9));
+
+	for (int i = 0; i < 7; i++)
+		cout << v[i] << "\n";
 }
 
 int main() {
