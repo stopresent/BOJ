@@ -19,8 +19,10 @@ void solve() {
 		{
 			if (sum - v[i] - v[j] == 100)
 			{
-				v.erase(v.begin() + j);
-				v.erase(v.begin() + i);
+				//v.erase(v.begin() + j);
+				//v.erase(v.begin() + i);
+				v[i] = 1000;
+				v[j] = 1000;
 				sort(v.begin(), v.end());
 				for (int k = 0; k < 7; k++)
 					cout << v[k] << '\n';
