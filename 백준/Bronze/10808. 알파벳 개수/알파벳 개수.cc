@@ -2,27 +2,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int a[26];
-string str;
-
-void solve()
-{
-	cin >> str;
-	for (int i = 0; i < str.size(); i++)
+string s;
+int arr[30];
+void solve() {
+	cin >> s;
+	for (int i = 0; i < s.size(); i++)
 	{
-		a[str[i] - 'a']++;
+		arr[s[i] - 'a']++;
 	}
 
 	for (int i = 0; i < 26; i++)
-		cout << a[i] << ' ';
+	{
+		cout << arr[i] << " ";
+	}
 }
 
-int main()
-{
+int main() {
 	FILE* stream;
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();
