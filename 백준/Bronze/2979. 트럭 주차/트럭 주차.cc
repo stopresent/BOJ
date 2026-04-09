@@ -2,40 +2,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int A, B, C;
-vector<int> cnt(101);
-int ret = 0;
-
-void solve()
-{
+int A, B, C, sum = 0;
+int arr[104];
+void solve() {
 	cin >> A >> B >> C;
-	int a, b;
+	int in, out;
 	for (int i = 0; i < 3; i++)
 	{
-		cin >> a >> b;
-		for (int j = a; j < b; j++)
-			cnt[j]++;
+		cin >> in >> out;
+		arr[in]++;
+		arr[out]--;
 	}
 
-	for (int i = 0; i < 101; i++)
+	int cur = 0;
+	for (int i = 0; i < 100; i++)
 	{
-		if (cnt[i] == 1)
-			ret += A;
-		else if (cnt[i] == 2)
-			ret += 2 * B;
-		else if (cnt[i] == 3)
-			ret += 3 * C;
+		cur += arr[i];
+		if (cur == 1) sum += A;
+		else if (cur == 2) sum += B * 2;
+		else if (cur == 3) sum += C * 3;
 	}
 
-	cout << ret;
+	cout << sum;
 }
 
-int main()
-{
+int main() {
 	FILE* stream;
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();
