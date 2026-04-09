@@ -6,14 +6,16 @@ string s;
 
 void solve() {
 	cin >> s;
-	string temp = s;
-	reverse(s.begin(), s.end());
-	if (s == temp) {
-		cout << 1;
+	int len = s.length();
+	for (int i = 0; i < len / 2; i++)
+	{
+		if (s[i] != s[len - 1 - i])
+		{
+			cout << 0;
+			return;
+		}
 	}
-	else {
-		cout << 0;
-	}
+	cout << 1;
 }
 
 int main() {
