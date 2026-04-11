@@ -2,9 +2,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n;
-int cnt[26];
-string s = "PREDAJA";
+int n, cnt[26];
+string s = "PREDAJA", ret = "";
 
 void solve() {
 	cin >> n;
@@ -15,20 +14,14 @@ void solve() {
 		cnt[str[0] - 'a']++;
 	}
 
-	bool flag = false;
 	for (int i = 0; i < 26; i++)
 	{
-		if (cnt[i] >= 5)
-		{
-			flag = true;
-			cout << (char)(i + 'a');
-		}
+		if (cnt[i] >= 5) ret += (char)(i + 'a');
 	}
 
-	if (!flag)
-	{
-		cout << s;
-	}
+	if (ret.size()) cout << ret;
+	else cout << s;
+
 }
 
 int main() {
