@@ -3,39 +3,37 @@
 using namespace std;
 
 int n;
-vector<int> cnt(26);
-string ret = "";
-void solve()
-{
+int cnt[26];
+string s = "PREDAJA";
+
+void solve() {
 	cin >> n;
-	string name;
+	string str;
 	for (int i = 0; i < n; i++)
 	{
-		cin >> name;
-		cnt[name[0] - 'a']++;
+		cin >> str;
+		cnt[str[0] - 'a']++;
 	}
 
+	bool flag = false;
 	for (int i = 0; i < 26; i++)
 	{
 		if (cnt[i] >= 5)
 		{
-			ret += i + 'a';
+			flag = true;
+			cout << (char)(i + 'a');
 		}
 	}
 
-	if (ret.size())
-		cout << ret;
-	else
-		cout << "PREDAJA";
-
+	if (!flag)
+	{
+		cout << s;
+	}
 }
 
-int main()
-{
+int main() {
 	FILE* stream;
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();
