@@ -3,28 +3,22 @@
 using namespace std;
 
 int n;
-string s;
-
-bool corect(string input, string front, string back)
-{
-	if (front.size() + back.size() > input.size()) return false;
-	if (input.substr(0, front.size()) == front && input.substr(input.size() - back.size()) == back) return true;
-
-	return false;
-}
+string ori_s, pre, suf, s;
 
 void solve() {
-	cin >> n >> s;
-	int idx = s.find('*');
-	string front, back;
-	front = s.substr(0, idx);
-	back = s.substr(idx + 1);
-	string a;
+	cin >> n >> ori_s;
+	int pos = ori_s.find('*');
+	pre = ori_s.substr(0, pos);
+	suf = ori_s.substr(pos + 1);
 	for (int i = 0; i < n; i++)
 	{
-		cin >> a;
-		if (corect(a, front, back)) cout << "DA\n";
-		else cout << "NE\n";
+		cin >> s;
+		if (pre.size() + suf.size() > s.size()) cout << "NE\n";
+		else
+		{
+			if (s.substr(0, pre.size()) == pre && s.substr(s.size() - suf.size()) == suf) cout << "DA\n";
+			else cout << "NE\n";
+		}
 	}
 }
 
