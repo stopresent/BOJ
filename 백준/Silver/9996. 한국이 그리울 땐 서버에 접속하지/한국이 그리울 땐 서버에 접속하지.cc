@@ -3,37 +3,28 @@
 using namespace std;
 
 int n;
-string str;
+string ori_s, pre, suf, s;
 
-void solve()
-{
-	cin >> n >> str;
-	int idx = str.find('*');
-	string pre = str.substr(0, idx);
-	string suf = str.substr(idx + 1);
-	string s;
+void solve() {
+	cin >> n >> ori_s;
+	int pos = ori_s.find('*');
+	pre = ori_s.substr(0, pos);
+	suf = ori_s.substr(pos + 1);
 	for (int i = 0; i < n; i++)
 	{
 		cin >> s;
-		if (s.size() < (pre.size() + suf.size()))
-		{
-			cout << "NE" << '\n';
-			continue;
-		}
-
-		if (pre == s.substr(0, pre.size()) && suf == s.substr(s.size() - suf.size()))
-			cout << "DA" << '\n';
+		if (pre.size() + suf.size() > s.size()) cout << "NE\n";
 		else
-			cout << "NE" << '\n';
+		{
+			if (s.substr(0, pre.size()) == pre && s.substr(s.size() - suf.size()) == suf) cout << "DA\n";
+			else cout << "NE\n";
+		}
 	}
 }
 
-int main()
-{
+int main() {
 	FILE* stream;
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();

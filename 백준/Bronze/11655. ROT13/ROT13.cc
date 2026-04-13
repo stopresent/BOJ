@@ -2,42 +2,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string str;
-
-void solve()
+char ROT13(char c)
 {
-	getline(cin, str);
-	for (int i = 0; i < str.size(); i++)
-	{
-		if (str[i] == 'u')
-		{
-			int a = 3;
-		}
-		if (str[i] >= 'a' && str[i] <= 'z')
-		{
-			if (str[i] > (('a' + 'z') / 2))
-				str[i] = str[i] + 13 - 26;
-			else
-				str[i] = str[i] + 13;
-		}
-		else if (str[i] >= 'A' && str[i] <= 'Z')
-		{
-			if (str[i] > (('A' + 'Z') / 2))
-				str[i] = str[i] + 13 - 26;
-			else
-				str[i] = str[i] + 13;
-		}
-	}
-
-	cout << str;
+	if (c >= 'a' && c <= 'z')
+		return (c - 'a' + 13) % 26 + 'a';
+	else if (c >= 'A' && c <= 'Z')
+		return (c - 'A' + 13) % 26 + 'A';
+	else
+		return c;
 }
 
-int main()
-{
+void solve() {
+	string s;
+	getline(cin, s);
+
+	for (int i = 0; i < s.size(); i++)
+	{
+		cout << ROT13(s[i]);
+	}
+}
+
+int main() {
 	FILE* stream;
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();

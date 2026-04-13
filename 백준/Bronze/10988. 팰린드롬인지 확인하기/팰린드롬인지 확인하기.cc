@@ -1,26 +1,29 @@
-#include <iostream>
-#include <vector>
-#include <list>
-#include <stack>
-#include <queue>
-
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 using namespace std;
 
 string s;
 
-
-int main()
-{
+void solve() {
 	cin >> s;
-
-	for (int i = 0; i < s.length() / 2; ++i) {
-		if (s[i] != s[s.length() - i - 1]) {
-			cout << "0" << endl;
-			return 0;
+	int len = s.length();
+	for (int i = 0; i < len / 2; i++)
+	{
+		if (s[i] != s[len - 1 - i])
+		{
+			cout << 0;
+			return;
 		}
 	}
+	cout << 1;
+}
 
-	cout << "1" << endl;
+int main() {
+	FILE* stream;
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+	//freopen_s(&stream, "input.txt", "rt", stdin);
+
+	solve();
+
 	return 0;
-
 }
