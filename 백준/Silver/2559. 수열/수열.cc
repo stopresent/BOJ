@@ -2,11 +2,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, k, temp, ret = -1000000;
-int psum[100001];
+int n, k, ret = -10000, psum[100004], temp;
 
-void solve()
-{
+void solve() {
 	cin >> n >> k;
 	for (int i = 1; i <= n; i++)
 	{
@@ -21,12 +19,9 @@ void solve()
 	cout << ret;
 }
 
-int main()
-{
+int main() {
 	FILE* stream;
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	//freopen_s(&stream, "input.txt", "rt", stdin);
 
 	solve();
