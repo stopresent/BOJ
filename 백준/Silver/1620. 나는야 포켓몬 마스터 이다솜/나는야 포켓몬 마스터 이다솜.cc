@@ -3,53 +3,37 @@
 using namespace std;
 
 int n, m;
-string a[100004];
-unordered_map<string, int> um2;
-string s;
+string input;
+map<string, int> m1;
+map<int, string> m2;
 
-bool isNumber(string s)
-{
-	if (s.empty())
-		return false;
-	for (char c : s)
-		if (!isdigit(c)) return false;
-	return true;
-}
-
-void solve()
-{
-	cin >> n >> m;
-	for (int i = 1; i <= n; i++)
-	{
-		cin >> s;
-		a[i] = s;
-		um2[s] = i;
-	}
-	for (int i = 0; i < m; i++)
-	{
-		cin >> s;
-		bool flag = isNumber(s);
-		if (flag)
-		{
-			int idx = stoi(s);
-			cout << a[idx] << '\n';
-		}
-		else
-		{
-			cout << um2[s] << '\n';
-		}
-	}
-}
-
-int main()
-{
+int main() {
 	FILE* stream;
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	//freopen_s(&stream, "input.txt", "rt", stdin);
 
-	solve();
+	cin >> n >> m;
+
+	for (int i = 1; i <= n; i++)
+	{
+		cin >> input;
+		m1[input] = i;
+		m2[i] = input;
+	}
+
+	for (int i = 1; i <= m; i++)
+	{
+		cin >> input;
+		try
+		{
+			int num = stoi(input);
+			cout << m2[num] << '\n';
+		}
+		catch (const std::exception&)
+		{
+			cout << m1[input] << '\n';
+		}
+	}
 
 	return 0;
 }
