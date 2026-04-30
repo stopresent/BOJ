@@ -8,7 +8,7 @@ vector<int> solution(vector<int> num_list) {
     answer.resize(2);
     for (int i = 0; i < num_list.size(); i++)
     {
-        (num_list[i] & 1) ? answer[1]++ : answer[0]++; 
+        answer[num_list[i] % 2]++;
     }
     return answer;
 }
