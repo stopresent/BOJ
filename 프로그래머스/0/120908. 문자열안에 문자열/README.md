@@ -1,6 +1,6 @@
 # [level 0] 문자열안에 문자열 - 120908 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120908?language=cpp) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120908) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 05월 04일 09:57:53
+2026년 05월 04일 09:59:37
 
 ### 문제 설명
 
