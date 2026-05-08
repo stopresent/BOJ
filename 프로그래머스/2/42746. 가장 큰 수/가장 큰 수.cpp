@@ -13,13 +13,10 @@ bool cmp(int a, int b)
 
 string solution(vector<int> numbers) {
     string answer = "";
-    bool isAllZero = true;
-    for (int num : numbers)
-        if (num != 0) isAllZero = false;
-    if (isAllZero) return "0";
     
     sort(numbers.begin(), numbers.end(), cmp);
-
+    if (numbers[0] == 0) return "0";
+    
     for (int i = 0; i < numbers.size(); i++)
     {
         answer += to_string(numbers[i]);
