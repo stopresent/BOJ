@@ -6,7 +6,6 @@ using namespace std;
 
 int n, answer = 0;
 vector<bool> visited;
-vector<bool> ch;
 void DFS(vector<int> &numbers, int target, int num)
 {
     if (num == n)
