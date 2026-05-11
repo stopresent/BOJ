@@ -9,21 +9,15 @@ vector<bool> visited;
 vector<bool> ch;
 void DFS(vector<int> &numbers, int target, int num)
 {
-    if (visited[num]) return;
-    
     if (num == n)
     {
         int sum = 0;
         
         for (int i = 0; i < n; i++)
         {
-            //cout << visited[i] << " ";
-            int temp;
-            if (visited[i]) temp = -1;
-            else temp = 1;
+            int temp = visited[i] ? 1 : -1;
             sum += numbers[i] * temp;
         }
-        //cout << endl;
         
         if (sum == target) answer++;
         
